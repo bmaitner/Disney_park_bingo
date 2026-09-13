@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Printable theme park bingo</title>
+  <meta name="description" content="Print people-watching bingo cards for a day at the parks.">
+  <meta name="theme-color" content="#FFFBF3">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="print-page">
+  <main class="app no-print">
+    <header class="masthead">
+      <h1 class="title">Theme park bingo</h1>
+      <p class="subtitle">Printable cards</p>
+    </header>
+
+    <form id="print-form" class="setup">
+      <fieldset class="field">
+        <legend>Who's playing</legend>
+        <div class="segmented">
+          <label><input type="radio" name="age" value="adult"><span>Adult</span></label>
+          <label><input type="radio" name="age" value="child"><span>Child</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend>Mode</legend>
+        <div class="segmented">
+          <label><input type="radio" name="mode" value="fan"><span>Fan</span></label>
+          <label><input type="radio" name="mode" value="cynic"><span>Cynic</span></label>
+          <label><input type="radio" name="mode" value="mixed"><span>Both</span></label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label class="legend" for="park">Park</label>
+        <select id="park" name="park"></select>
+      </div>
+
+      <fieldset class="field">
+        <legend>Difficulty</legend>
+        <div class="segmented">
+          <label><input type="radio" name="difficulty" value="easy"><span>Easy</span></label>
+          <label><input type="radio" name="difficulty" value="any"><span>Normal</span></label>
+          <label><input type="radio" name="difficulty" value="hard"><span>Hard</span></label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label class="legend" for="count">Number of cards</label>
+        <select id="count" name="count"></select>
+      </div>
+
+      <p class="error" id="print-error" role="alert" hidden></p>
+      <button type="button" class="primary" id="print">Print</button>
+      <button type="button" class="secondary" id="reshuffle">Shuffle new cards</button>
+      <p class="hint">Each card prints on its own page. To get a PDF, choose "Save as PDF"
+        in the print dialog.</p>
+      <a class="link back-link" href="./">Back to the app</a>
+    </form>
+
+    <p class="loading" id="loading">Loading squares...</p>
+  </main>
+
+  <section class="sheets" id="sheets" aria-label="Card preview"></section>
+
+  <script type="module" src="print.js"></script>
+</body>
+</html>

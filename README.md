@@ -78,6 +78,14 @@ The R tests fail if `app/squares.json` is out of date. Installed copies pick up 
 new deploy the next time the app is opened with a signal. If you add files to the
 app, list them in `FILES` in `app/sw.js` so they work offline.
 
+**Printable cards.** For kids without phones, the app's "Print paper cards" link
+opens `print.html`. Pick the settings and how many cards (up to 12), then print
+one card per page, or choose "Save as PDF" in the print dialog. The page URL
+holds the settings and a random seed, so a link like
+`print.html?age=child&mode=fan&park=epcot&n=4&seed=123` always gives the same
+cards. It also works on a computer straight from the GitHub Pages site. For
+printing from R instead, see `save_bingo_cards()`.
+
 **Suggest a square.** Players can suggest squares from the app without any
 account. Suggestions go to a private Google Sheet for you to review; see
 [`backend/README.md`](backend/README.md) to set it up. Then read them with

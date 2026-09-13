@@ -1,6 +1,8 @@
 import { makeCard, filterSquares, completedLines, cardAudience } from "./bingo.js";
 import { buildSuggestion, validateSuggestion, flushOutbox, MAX_TEXT } from "./suggest.js";
 import { SUBMIT_URL } from "./config.js";
+import { fitLabels } from "./fit.js";
+import { printQuery } from "./printing.js";
 
 const STORAGE_KEY = "parkbingo.v1";
 const MAX_HISTORY = 100;
@@ -260,22 +262,8 @@ async function submitSuggestion(event) {
     : "Thanks! It'll send when you have signal.");
 }
 
-// Shrink each label until it fits its cell.
 function fitAllLabels() {
-  for (const cell of $("board").children) {
-    const label = cell.firstElementChild;
-    cell.classList.remove("tight");
-    let size = cell.classList.contains("free") ? 20 : 15;
-    label.style.fontSize = `${size}px`;
-    const fits = () =>
-      label.scrollHeight <= cell.clientHeight - 8 &&
-      label.scrollWidth <= label.clientWidth + 1;
-    while (!fits() && size > 9) {
-      size -= 0.5;
-      label.style.fontSize = `${size}px`;
-    }
-    if (!fits()) cell.classList.add("tight");
-  }
+  fitLabels($("board").children);
 }
 
 // Start --------------------------------------------------------------------
@@ -298,6 +286,9 @@ async function start() {
 
   $("setup-form").addEventListener("submit", dealCard);
   $("setup-form").addEventListener("change", updatePoolHint);
+  $("print-cards").addEventListener("click", () => {
+    location.href = `print.html${printQuery(readSettings())}`;
+  });
   $("back-to-card").addEventListener("click", () => show("card"));
   $("new-card").addEventListener("click", openSetup);
   $("board").addEventListener("click", toggleCell);

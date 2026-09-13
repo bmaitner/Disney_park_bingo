@@ -21,6 +21,7 @@
       filterSquares, makeCard, makeRng, completedLines, winningLines, cardAudience,
     } from "./bingo.js";
     import { buildSuggestion, validateSuggestion, flushOutbox } from "./suggest.js";
+    import { readPrintSettings, printQuery, makePrintCards } from "./printing.js";
 
     const results = [];
     const check = (name, ok, detail = "") => results.push({ name, ok: Boolean(ok), detail });
@@ -148,6 +149,29 @@
           (await flushOutbox([item], "https://x/exec", reply({ ok: false, error: "invalid mode" }))).length === 0);
     check("suggestions give up after 20 failed attempts",
           (await flushOutbox([{ payload: good, attempts: 19 }], "https://x/exec", offline)).length === 0);
+
+    // Printable cards.
+    const codes = parks.map((p) => p.code);
+    const defaults = readPrintSettings(new URLSearchParams(""), codes);
+    check("print page defaults to 4 child fan cards at any park",
+          defaults.count === 4 && defaults.age === "child" && defaults.mode === "fan" &&
+          defaults.park === "any" && defaults.difficulty === "any" && Number.isInteger(defaults.seed));
+    const junk = readPrintSettings(new URLSearchParams("age=toddler&mode=grumpy&park=universal&difficulty=insane&n=99&seed=-4"), codes);
+    check("bad print URL values fall back to defaults and clamp the count",
+          junk.age === "child" && junk.mode === "fan" && junk.park === "any" &&
+          junk.difficulty === "any" && junk.count === 12 && junk.seed >= 0);
+    const printSettings = { age: "adult", mode: "cynic", park: "animal_kingdom", difficulty: "hard", count: 3, seed: 42 };
+    const roundTrip = readPrintSettings(new URLSearchParams(printQuery(printSettings)), codes);
+    check("print settings survive a round trip through the URL",
+          Object.keys(printSettings).every((k) => roundTrip[k] === printSettings[k]));
+    const setA = makePrintCards(squares, printSettings);
+    const setB = makePrintCards(squares, printSettings);
+    check("a print link reproduces the same cards",
+          setA.length === 3 && JSON.stringify(setA.map((c) => c.grid)) === JSON.stringify(setB.map((c) => c.grid)));
+    check("cards in a printed set differ", new Set(setA.map((c) => JSON.stringify(c.grid))).size === 3);
+    const more = makePrintCards(squares, { ...printSettings, count: 5 });
+    check("printing more cards keeps the first ones",
+          JSON.stringify(more.slice(0, 3).map((c) => c.grid)) === JSON.stringify(setA.map((c) => c.grid)));
 
     // Report.
     const failed = results.filter((r) => !r.ok);
