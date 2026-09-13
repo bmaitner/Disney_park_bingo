@@ -59,6 +59,7 @@
         <button type="submit" class="primary" id="deal">Deal a card</button>
         <p class="hint" id="pool-hint"></p>
         <button type="button" class="link" id="back-to-card" hidden>Back to my card</button>
+        <button type="button" class="link suggest-open" hidden>Suggest a square</button>
       </form>
     </section>
 
@@ -70,9 +71,64 @@
         <span class="card-id" id="card-id"></span>
       </div>
       <button type="button" class="secondary" id="new-card">New card</button>
+      <button type="button" class="link suggest-open" hidden>Suggest a square</button>
+    </section>
+
+    <section id="suggest-view" class="view" hidden>
+      <form id="suggest-form" class="setup" novalidate>
+        <p class="intro">Spotted something that belongs on a card? Suggestions are
+          reviewed before they're added.</p>
+
+        <div class="field">
+          <label class="legend" for="suggest-text">Square</label>
+          <input id="suggest-text" name="text" type="text" maxlength="60"
+                 autocomplete="off" enterkeyhint="done"
+                 placeholder="e.g. Stroller with a license plate">
+          <p class="counter" id="suggest-count">0 / 60</p>
+        </div>
+
+        <fieldset class="field">
+          <legend>Mode</legend>
+          <div class="segmented">
+            <label><input type="radio" name="mode" value="fan"><span>Fan</span></label>
+            <label><input type="radio" name="mode" value="cynic"><span>Cynic</span></label>
+            <label><input type="radio" name="mode" value="any" checked><span>Both</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>Suitable for</legend>
+          <div class="segmented">
+            <label><input type="radio" name="age" value="child" checked><span>Everyone</span></label>
+            <label><input type="radio" name="age" value="adult"><span>Adults only</span></label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label class="legend" for="suggest-park">Where you'd see it</label>
+          <select id="suggest-park" name="park"></select>
+        </div>
+
+        <div class="field">
+          <label class="legend" for="suggest-note">Note (optional)</label>
+          <textarea id="suggest-note" name="note" rows="2" maxlength="200"
+                    placeholder="Anything that helps, like how often you see it"></textarea>
+        </div>
+
+        <!-- Hidden from people; bots that fill it in get ignored. -->
+        <div class="trap" aria-hidden="true">
+          <label for="suggest-website">Website</label>
+          <input id="suggest-website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <p class="error" id="suggest-error" role="alert" hidden></p>
+        <button type="submit" class="primary">Send suggestion</button>
+        <button type="button" class="link" id="suggest-cancel">Cancel</button>
+      </form>
     </section>
 
     <p class="loading" id="loading">Loading squares...</p>
+    <p class="toast" id="toast" role="status" aria-live="polite" hidden></p>
   </main>
 
   <script type="module" src="app.js"></script>

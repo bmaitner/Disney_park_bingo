@@ -78,6 +78,12 @@ The R tests fail if `app/squares.json` is out of date. Installed copies pick up 
 new deploy the next time the app is opened with a signal. If you add files to the
 app, list them in `FILES` in `app/sw.js` so they work offline.
 
+**Suggest a square.** Players can suggest squares from the app without any
+account. Suggestions go to a private Google Sheet for you to review; see
+[`backend/README.md`](backend/README.md) to set it up. Then read them with
+`fetch_suggestions()` and add the ones you like with `add_squares()`. The button
+only appears once `app/config.js` has the inbox URL.
+
 The app keeps finished cards (which squares were crossed off) on the phone for
 future feedback collection with `update_difficulty()`.
 

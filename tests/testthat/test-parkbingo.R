@@ -192,3 +192,40 @@ test_that("app/squares.json is in sync with the squares CSV", {
   expect_identical(readLines(app_json), readLines(fresh),
                    info = "Run `Rscript tools/update_app.R` to refresh the app.")
 })
+
+test_that("suggestion responses are parsed", {
+  json <- '{"ok":true,"suggestions":[{"received_at":"2026-09-13T20:00:00Z","submission_id":"abc12345","text":"Stroller with a license plate","mode":"any","age":"child","park":"any","note":"","status":""}]}'
+  out <- parkbingo:::parse_suggestions(json)
+  expect_equal(nrow(out), 1)
+  expect_equal(out$text, "Stroller with a license plate")
+  expect_named(out, parkbingo:::suggestion_columns)
+
+  empty <- parkbingo:::parse_suggestions('{"ok":true,"suggestions":[]}')
+  expect_equal(nrow(empty), 0)
+  expect_named(empty, parkbingo:::suggestion_columns)
+
+  expect_error(parkbingo:::parse_suggestions('{"ok":false,"error":"unauthorized"}'),
+               "unauthorized")
+  expect_error(parkbingo:::parse_suggestions("<html>"), "didn't return JSON")
+  expect_error(fetch_suggestions(endpoint = "", token = ""), "PARKBINGO_ENDPOINT")
+})
+
+test_that("add_squares appends with new ids and validates", {
+  squares <- bingo_squares()
+  new <- data.frame(
+    text = c("Stroller with a license plate", "Churro in each hand"),
+    mode = c("any", "fan"), age = "child", park = c("any", "epcot"),
+    category = c("people", "food"), note = "ignored", stringsAsFactors = FALSE
+  )
+  out <- add_squares(squares, new)
+  expect_equal(nrow(out), nrow(squares) + 2)
+  expect_equal(tail(out$id, 2), c("sq0164", "sq0165"))
+  expect_equal(tail(out$p_crossed, 1), 0.5)
+  expect_equal(tail(out$n_feedback, 1), 0L)
+  expect_false("note" %in% names(out))
+
+  bad <- new
+  bad$mode[1] <- "grumpy"
+  expect_error(add_squares(squares, bad), "mode")
+  expect_error(add_squares(squares, new[, -5]), "category")
+})

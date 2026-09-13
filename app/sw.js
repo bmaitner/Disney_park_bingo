@@ -9,6 +9,8 @@ const FILES = [
   "styles.css",
   "app.js",
   "bingo.js",
+  "suggest.js",
+  "config.js",
   "squares.json",
   "manifest.webmanifest",
   "icons/icon-180.png",

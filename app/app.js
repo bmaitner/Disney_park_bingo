@@ -1,13 +1,16 @@
 import { makeCard, filterSquares, completedLines, cardAudience } from "./bingo.js";
+import { buildSuggestion, validateSuggestion, flushOutbox, MAX_TEXT } from "./suggest.js";
+import { SUBMIT_URL } from "./config.js";
 
 const STORAGE_KEY = "parkbingo.v1";
 const MAX_HISTORY = 100;
 
 const $ = (id) => document.getElementById(id);
-const views = { setup: $("setup-view"), card: $("card-view") };
+const views = { setup: $("setup-view"), card: $("card-view"), suggest: $("suggest-view") };
 
 let data = null; // contents of squares.json
-let state = { settings: null, card: null, history: [] };
+let state = { settings: null, card: null, history: [], outbox: [] };
+let returnTo = "setup"; // view to go back to after suggesting
 
 // Storage ------------------------------------------------------------------
 
@@ -32,10 +35,12 @@ function saveState() {
 
 function show(name) {
   for (const [key, el] of Object.entries(views)) el.hidden = key !== name;
+  const subtitles = { setup: "Set up your card", suggest: "Suggest a square" };
   $("subtitle").textContent =
     name === "card" && state.card
       ? cardAudience(state.card.settings, data.parks)
-      : "Set up your card";
+      : subtitles[name];
+  window.scrollTo(0, 0);
   if (name === "card") fitAllLabels();
 }
 
@@ -181,6 +186,80 @@ function toggleCell(event) {
   updateMarks(after > before);
 }
 
+// Suggestions ----------------------------------------------------------------
+
+function openSuggest() {
+  returnTo = views.card.hidden ? "setup" : "card";
+  const form = $("suggest-form");
+  form.reset();
+  const current = state.card?.settings ?? state.settings ?? readSettings();
+  const mode = current.mode === "mixed" ? "any" : current.mode;
+  form.querySelector(`input[name="mode"][value="${mode}"]`).checked = true;
+  form.querySelector(`input[name="age"][value="${current.age}"]`).checked = true;
+  form.park.value = current.park;
+  updateSuggestCount();
+  $("suggest-error").hidden = true;
+  show("suggest");
+}
+
+function updateSuggestCount() {
+  $("suggest-count").textContent = `${$("suggest-text").value.length} / ${MAX_TEXT}`;
+}
+
+function toast(message) {
+  const el = $("toast");
+  el.textContent = message;
+  el.hidden = false;
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => { el.hidden = true; }, 3500);
+}
+
+async function sendOutbox() {
+  if (!SUBMIT_URL || state.outbox.length === 0 || sendOutbox.busy) return 0;
+  sendOutbox.busy = true;
+  const before = state.outbox.slice();
+  try {
+    const remaining = await flushOutbox(before, SUBMIT_URL);
+    // Keep anything queued while we were sending.
+    state.outbox = remaining.concat(state.outbox.slice(before.length));
+    saveState();
+    return before.length - remaining.length;
+  } finally {
+    sendOutbox.busy = false;
+  }
+}
+
+async function submitSuggestion(event) {
+  event.preventDefault();
+  const form = new FormData($("suggest-form"));
+  if (form.get("website")) {
+    show(returnTo); // bot filled the trap; quietly do nothing
+    return;
+  }
+  const suggestion = buildSuggestion({
+    text: form.get("text"),
+    mode: form.get("mode"),
+    age: form.get("age"),
+    park: form.get("park"),
+    note: form.get("note"),
+  });
+  const error = validateSuggestion(suggestion, data.parks.map((p) => p.code));
+  if (error) {
+    $("suggest-error").textContent = error;
+    $("suggest-error").hidden = false;
+    return;
+  }
+
+  state.outbox.push({ payload: suggestion, attempts: 0 });
+  saveState();
+  show(returnTo);
+  const pending = state.outbox.length;
+  await sendOutbox();
+  toast(state.outbox.length < pending
+    ? "Thanks! Your suggestion was sent."
+    : "Thanks! It'll send when you have signal.");
+}
+
 // Shrink each label until it fits its cell.
 function fitAllLabels() {
   for (const cell of $("board").children) {
@@ -212,15 +291,31 @@ async function start() {
   }
   $("loading").hidden = true;
 
-  $("park").replaceChildren(
-    ...data.parks.map((p) => new Option(p.code === "any" ? "Any park" : p.label, p.code))
-  );
+  const parkOptions = () =>
+    data.parks.map((p) => new Option(p.code === "any" ? "Any park" : p.label, p.code));
+  $("park").replaceChildren(...parkOptions());
+  $("suggest-park").replaceChildren(...parkOptions());
 
   $("setup-form").addEventListener("submit", dealCard);
   $("setup-form").addEventListener("change", updatePoolHint);
   $("back-to-card").addEventListener("click", () => show("card"));
   $("new-card").addEventListener("click", openSetup);
   $("board").addEventListener("click", toggleCell);
+
+  if (SUBMIT_URL) {
+    document.querySelectorAll(".suggest-open").forEach((button) => {
+      button.hidden = false;
+      button.addEventListener("click", openSuggest);
+    });
+    $("suggest-form").addEventListener("submit", submitSuggestion);
+    $("suggest-text").addEventListener("input", updateSuggestCount);
+    $("suggest-cancel").addEventListener("click", () => show(returnTo));
+    window.addEventListener("online", sendOutbox);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") sendOutbox();
+    });
+    sendOutbox();
+  }
 
   let resizeTimer;
   window.addEventListener("resize", () => {

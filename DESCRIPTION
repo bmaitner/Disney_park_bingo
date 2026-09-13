@@ -25,6 +25,7 @@ Imports:
     stats,
     utils
 Suggests:
+    curl,
     nanoparquet,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

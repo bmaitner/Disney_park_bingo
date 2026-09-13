@@ -20,6 +20,7 @@
     import {
       filterSquares, makeCard, makeRng, completedLines, winningLines, cardAudience,
     } from "./bingo.js";
+    import { buildSuggestion, validateSuggestion, flushOutbox } from "./suggest.js";
 
     const results = [];
     const check = (name, ok, detail = "") => results.push({ name, ok: Boolean(ok), detail });
@@ -119,6 +120,34 @@
     check("diagonal counts as a bingo", completedLines(crossed, 5).length === 1);
     [2, 7, 17, 22].forEach((i) => { crossed[i] = true; });
     check("two lines count as two bingos", completedLines(crossed, 5).length === 2);
+
+    // Suggestions.
+    const parkCodes = parks.map((p) => p.code);
+    const good = buildSuggestion({ text: "  Stroller   with a license plate ", mode: "fan", age: "child", park: "epcot", note: "" });
+    check("suggestions trim whitespace and get an id",
+          good.text === "Stroller with a license plate" && good.submission_id.length >= 8 && good.type === "suggestion");
+    check("valid suggestion passes", validateSuggestion(good, parkCodes) === null);
+    check("too-short suggestion is rejected", validateSuggestion({ ...good, text: "ab" }, parkCodes) !== null);
+    check("too-long suggestion is rejected", validateSuggestion({ ...good, text: "x".repeat(61) }, parkCodes) !== null);
+    check("unknown park is rejected", validateSuggestion({ ...good, park: "universal" }, parkCodes) !== null);
+
+    const reply = (body) => async () => ({ json: async () => body });
+    const offline = async () => { throw new TypeError("Failed to fetch"); };
+    const item = { payload: good, attempts: 0 };
+    let calls = [];
+    const spy = async (url, opts) => { calls.push({ url, opts }); return { json: async () => ({ ok: true }) }; };
+    check("sent suggestions leave the outbox", (await flushOutbox([item, item], "https://x/exec", spy)).length === 0);
+    check("sends JSON as text/plain (no CORS preflight)",
+          calls.length === 2 && calls[0].opts.headers["Content-Type"].startsWith("text/plain") &&
+          JSON.parse(calls[0].opts.body).submission_id === good.submission_id);
+    const stillQueued = await flushOutbox([item], "https://x/exec", offline);
+    check("offline suggestions stay queued", stillQueued.length === 1 && stillQueued[0].attempts === 1);
+    check("busy inbox keeps suggestions queued",
+          (await flushOutbox([item], "https://x/exec", reply({ ok: false, error: "busy", retry: true }))).length === 1);
+    check("rejected suggestions are dropped",
+          (await flushOutbox([item], "https://x/exec", reply({ ok: false, error: "invalid mode" }))).length === 0);
+    check("suggestions give up after 20 failed attempts",
+          (await flushOutbox([{ payload: good, attempts: 19 }], "https://x/exec", offline)).length === 0);
 
     // Report.
     const failed = results.filter((r) => !r.ok);

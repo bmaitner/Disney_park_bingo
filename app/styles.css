@@ -141,6 +141,45 @@ button { font: inherit; cursor: pointer; }
 
 .loading { text-align: center; color: var(--ink-soft); }
 
+/* Suggest ----------------------------------------------------------------- */
+
+.intro { margin: 0; color: var(--ink-soft); line-height: 1.4; }
+
+input[type="text"], textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: #fff;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+textarea { resize: vertical; }
+
+.counter { margin: 4px 2px 0; text-align: right; font-size: 0.8rem; color: var(--ink-soft); }
+
+.trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+.suggest-open { display: block; margin: 8px auto 0; }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom) + 20px);
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 32px);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 10px 16px;
+  border-radius: 12px;
+  margin: 0;
+  text-align: center;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.2);
+}
+
 /* Card -------------------------------------------------------------------- */
 
 .board {
