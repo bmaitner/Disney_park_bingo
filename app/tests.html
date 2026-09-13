@@ -20,7 +20,9 @@
     import {
       filterSquares, makeCard, makeRng, completedLines, winningLines, cardAudience,
     } from "./bingo.js";
-    import { buildSuggestion, validateSuggestion, flushOutbox } from "./suggest.js";
+    import { buildSuggestion, validateSuggestion } from "./suggest.js";
+    import { flushOutbox } from "./outbox.js";
+    import { buildResult, summarizeCard } from "./results.js";
     import { readPrintSettings, printQuery, makePrintCards } from "./printing.js";
 
     const results = [];
@@ -149,6 +151,32 @@
           (await flushOutbox([item], "https://x/exec", reply({ ok: false, error: "invalid mode" }))).length === 0);
     check("suggestions give up after 20 failed attempts",
           (await flushOutbox([{ payload: good, attempts: 19 }], "https://x/exec", offline)).length === 0);
+
+    check("inbox without results support keeps items queued",
+          (await flushOutbox([item], "https://x/exec", reply({ ok: false, error: "unknown request type" }))).length === 1);
+
+    // Card results.
+    const played = makeCard(squares, { mode: "fan", age: "child", park: "epcot", difficulty: "hard" }, makeRng(11));
+    [0, 1, 2, 3, 4, 7].forEach((i) => { played.crossed[i] = true; });
+    const summary = summarizeCard(played);
+    check("card summary counts spotted squares and bingos",
+          summary.squares === 24 && summary.spotted === 6 && summary.bingos === 1);
+    const result = buildResult(played, new Date("2026-09-14T18:00:00Z"));
+    check("result has one entry per square, without the free space",
+          result.squares.length === 24 && !result.squares.some((s) => s.id === null));
+    check("result marks crossed squares",
+          result.squares.filter((s) => s.crossed).length === 6 &&
+          result.squares.find((s) => s.id === played.grid[7]).crossed === true &&
+          result.squares.find((s) => s.id === played.grid[8]).crossed === false);
+    check("result carries settings and times but nothing personal",
+          result.type === "result" && result.card_id === played.cardId && result.difficulty === "hard" &&
+          result.park === "epcot" && result.started_at === played.created &&
+          result.ended_at === "2026-09-14T18:00:00.000Z" &&
+          Object.keys(result).sort().join() ===
+            "age,card_id,difficulty,ended_at,mode,park,size,squares,started_at,submission_id,type");
+    const blank = makeCard(squares, { mode: "cynic", age: "adult", park: "any" }, makeRng(12));
+    check("blank cards still produce a result",
+          buildResult(blank).squares.every((s) => s.crossed === false) && summarizeCard(blank).spotted === 0);
 
     // Printable cards.
     const codes = parks.map((p) => p.code);

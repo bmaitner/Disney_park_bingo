@@ -71,8 +71,31 @@
         <span id="progress"></span>
         <span class="card-id" id="card-id"></span>
       </div>
+      <button type="button" class="primary card-action" id="done-playing">Done playing</button>
       <button type="button" class="secondary" id="new-card">New card</button>
       <button type="button" class="link suggest-open" hidden>Suggest a square</button>
+    </section>
+
+    <section id="done-view" class="view" hidden>
+      <div class="setup">
+        <div class="summary">
+          <p class="summary-big" id="done-spotted"></p>
+          <p class="summary-small" id="done-bingos"></p>
+        </div>
+
+        <label class="share" id="share-row" hidden>
+          <input type="checkbox" id="share-results">
+          <span>
+            <strong>Share this card's results</strong>
+            <span class="share-detail">Sends which squares you crossed off, the card
+              settings, and when you started and finished, so squares get fairer
+              difficulty ratings. Nothing about you or your phone is sent.</span>
+          </span>
+        </label>
+
+        <button type="button" class="primary" id="finish-card">Finish card</button>
+        <button type="button" class="link" id="keep-playing">Keep playing</button>
+      </div>
     </section>
 
     <section id="suggest-view" class="view" hidden>

@@ -10,6 +10,8 @@ const FILES = [
   "app.js",
   "bingo.js",
   "suggest.js",
+  "outbox.js",
+  "results.js",
   "config.js",
   "fit.js",
   "printing.js",

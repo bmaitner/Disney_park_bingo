@@ -1,14 +1,10 @@
-// Square suggestions: validation and an offline outbox that sends to the
-// Apps Script inbox in backend/suggestions.gs. Limits match that script.
+// Square suggestions for the Apps Script inbox in backend/inbox.gs.
+// Limits match that script.
+
+import { newId } from "./outbox.js";
 
 export const MAX_TEXT = 60;
 export const MAX_NOTE = 200;
-const MAX_ATTEMPTS = 20;
-
-function newId() {
-  if (globalThis.crypto?.randomUUID) return crypto.randomUUID();
-  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
-}
 
 export function buildSuggestion({ text, mode, age, park, note = "" }) {
   return {
@@ -32,31 +28,4 @@ export function validateSuggestion(s, parkCodes) {
   if (!["child", "adult"].includes(s.age)) return "Pick who it's for.";
   if (!parkCodes.includes(s.park)) return "Pick a park.";
   return null;
-}
-
-// Try to send every queued suggestion. Returns the items still waiting.
-// Items the inbox rejects as invalid are dropped; network failures and "busy"
-// responses stay queued (the inbox ignores duplicates, so retries are safe).
-export async function flushOutbox(outbox, url, fetchImpl = fetch) {
-  const remaining = [];
-  for (const item of outbox) {
-    let keep = true;
-    try {
-      const response = await fetchImpl(url, {
-        method: "POST",
-        // text/plain avoids a CORS preflight, which Apps Script can't answer.
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(item.payload),
-      });
-      const result = await response.json();
-      keep = !result.ok && Boolean(result.retry);
-    } catch {
-      keep = true;
-    }
-    if (keep) {
-      const attempts = (item.attempts ?? 0) + 1;
-      if (attempts < MAX_ATTEMPTS) remaining.push({ ...item, attempts });
-    }
-  }
-  return remaining;
 }

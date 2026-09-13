@@ -1,5 +1,7 @@
 import { makeCard, filterSquares, completedLines, cardAudience } from "./bingo.js";
-import { buildSuggestion, validateSuggestion, flushOutbox, MAX_TEXT } from "./suggest.js";
+import { buildSuggestion, validateSuggestion, MAX_TEXT } from "./suggest.js";
+import { flushOutbox } from "./outbox.js";
+import { buildResult, summarizeCard } from "./results.js";
 import { SUBMIT_URL } from "./config.js";
 import { fitLabels } from "./fit.js";
 import { printQuery } from "./printing.js";
@@ -8,10 +10,15 @@ const STORAGE_KEY = "parkbingo.v1";
 const MAX_HISTORY = 100;
 
 const $ = (id) => document.getElementById(id);
-const views = { setup: $("setup-view"), card: $("card-view"), suggest: $("suggest-view") };
+const views = {
+  setup: $("setup-view"),
+  card: $("card-view"),
+  done: $("done-view"),
+  suggest: $("suggest-view"),
+};
 
 let data = null; // contents of squares.json
-let state = { settings: null, card: null, history: [], outbox: [] };
+let state = { settings: null, card: null, history: [], outbox: [], shareResults: true };
 let returnTo = "setup"; // view to go back to after suggesting
 
 // Storage ------------------------------------------------------------------
@@ -37,7 +44,7 @@ function saveState() {
 
 function show(name) {
   for (const [key, el] of Object.entries(views)) el.hidden = key !== name;
-  const subtitles = { setup: "Set up your card", suggest: "Suggest a square" };
+  const subtitles = { setup: "Set up your card", done: "Done playing?", suggest: "Suggest a square" };
   $("subtitle").textContent =
     name === "card" && state.card
       ? cardAudience(state.card.settings, data.parks)
@@ -93,9 +100,11 @@ function crossedCount(card) {
   return card.crossed.filter((c, i) => c && card.grid[i] !== null).length;
 }
 
-function archiveCard(card) {
-  if (!card || crossedCount(card) === 0) return;
-  state.history.push({ ...card, ended: new Date().toISOString() });
+// Keep a local record of every card. Only cards finished with "Done playing"
+// and sharing turned on are sent anywhere.
+function archiveCard(card, { finished = false, shared = false } = {}) {
+  if (!card) return;
+  state.history.push({ ...card, ended: new Date().toISOString(), finished, shared });
   state.history = state.history.slice(-MAX_HISTORY);
 }
 
@@ -186,6 +195,35 @@ function toggleCell(event) {
   const after = completedLines(card.crossed, card.settings.size).length;
   saveState();
   updateMarks(after > before);
+}
+
+// Done playing ---------------------------------------------------------------
+
+function openDone() {
+  const { squares, spotted, bingos } = summarizeCard(state.card);
+  $("done-spotted").textContent = `You spotted ${spotted} of ${squares}`;
+  $("done-bingos").textContent =
+    bingos === 0 ? "" : bingos === 1 ? "and got a bingo!" : `and got ${bingos} bingos!`;
+  $("share-row").hidden = !SUBMIT_URL;
+  $("share-results").checked = state.shareResults;
+  show("done");
+}
+
+async function finishCard() {
+  const card = state.card;
+  const share = Boolean(SUBMIT_URL) && $("share-results").checked;
+  if (SUBMIT_URL) state.shareResults = $("share-results").checked;
+  if (share) state.outbox.push({ payload: buildResult(card), attempts: 0 });
+  archiveCard(card, { finished: true, shared: share });
+  state.card = null;
+  saveState();
+  openSetup();
+  if (!share) return;
+  const pending = state.outbox.length;
+  await sendOutbox();
+  toast(state.outbox.length < pending
+    ? "Thanks for sharing your results!"
+    : "Thanks! Results will send when you have signal.");
 }
 
 // Suggestions ----------------------------------------------------------------
@@ -291,6 +329,9 @@ async function start() {
   });
   $("back-to-card").addEventListener("click", () => show("card"));
   $("new-card").addEventListener("click", openSetup);
+  $("done-playing").addEventListener("click", openDone);
+  $("finish-card").addEventListener("click", finishCard);
+  $("keep-playing").addEventListener("click", () => show("card"));
   $("board").addEventListener("click", toggleCell);
 
   if (SUBMIT_URL) {
@@ -301,6 +342,8 @@ async function start() {
     $("suggest-form").addEventListener("submit", submitSuggestion);
     $("suggest-text").addEventListener("input", updateSuggestCount);
     $("suggest-cancel").addEventListener("click", () => show(returnTo));
+  }
+  if (SUBMIT_URL) {
     window.addEventListener("online", sendOutbox);
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") sendOutbox();

@@ -229,3 +229,43 @@ test_that("add_squares appends with new ids and validates", {
   expect_error(add_squares(squares, bad), "mode")
   expect_error(add_squares(squares, new[, -5]), "category")
 })
+
+test_that("result responses are parsed for update_difficulty", {
+  row <- function(sub, card, sq, crossed, start, end) {
+    sprintf(paste0('{"received_at":"2026-09-14T20:00:00.000Z","submission_id":"%s",',
+                   '"card_id":"%s","mode":"fan","age":"child","park":"epcot",',
+                   '"difficulty":"any","started_at":"%s","ended_at":"%s",',
+                   '"square_id":"%s","crossed":"%s"}'),
+            sub, card, start, end, sq, crossed)
+  }
+  json <- paste0('{"ok":true,"results":[',
+    paste(
+      row("sub-long-0001", "abc123", "sq0017", "TRUE", "2026-09-14T15:00:00.000Z", "2026-09-14T19:30:00.000Z"),
+      row("sub-long-0001", "abc123", "sq0073", "FALSE", "2026-09-14T15:00:00.000Z", "2026-09-14T19:30:00.000Z"),
+      row("sub-quick-001", "def456", "sq0017", "TRUE", "2026-09-14T15:00:00.000Z", "2026-09-14T15:02:00.000Z"),
+      sep = ","),
+    ']}')
+
+  all <- parkbingo:::parse_results(json)
+  expect_equal(nrow(all), 3)
+  expect_type(all$crossed, "logical")
+  expect_equal(all$crossed, c(TRUE, FALSE, TRUE))
+  expect_equal(all$minutes, c(270, 270, 2))
+  expect_s3_class(all$started_at, "POSIXct")
+
+  played <- parkbingo:::parse_results(json, min_minutes = 30)
+  expect_equal(unique(played$card_id), "abc123")
+
+  squares <- bingo_squares()
+  updated <- update_difficulty(squares, played)
+  i <- match("sq0017", squares$id)
+  expect_equal(updated$n_feedback[i], 1L)
+  expect_gt(updated$p_crossed[i], squares$p_crossed[i])
+
+  empty <- parkbingo:::parse_results('{"ok":true,"results":[]}')
+  expect_equal(nrow(empty), 0)
+  expect_true(all(c("id", "crossed", "minutes") %in% names(empty)))
+  expect_error(parkbingo:::parse_results('{"ok":false,"error":"unknown request type"}'),
+               "redeploy")
+  expect_error(fetch_results(endpoint = "", token = ""), "PARKBINGO_ENDPOINT")
+})

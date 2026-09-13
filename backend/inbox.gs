@@ -1,22 +1,32 @@
 /**
- * Theme park bingo: suggestion inbox.
+ * Theme park bingo: player inbox.
  *
  * A Google Apps Script web app, bound to a Google Sheet. The phone app POSTs
- * square suggestions here; each becomes a row in the "suggestions" tab for you
- * to review. The R function fetch_suggestions() reads them back using a
- * private read token. See backend/README.md for setup.
+ * here:
+ *   - square suggestions, one row each in the "suggestions" tab
+ *   - finished-card results, one row per square in the "results" tab
+ * The R functions fetch_suggestions() and fetch_results() read them back using
+ * a private read token. See backend/README.md for setup.
  */
 
-const SUGGESTIONS_SHEET = "suggestions";
-const COLUMNS = [
-  "received_at", "submission_id", "text", "mode", "age", "park", "note", "status",
-];
+const SHEETS = {
+  suggestions: [
+    "received_at", "submission_id", "text", "mode", "age", "park", "note", "status",
+  ],
+  results: [
+    "received_at", "submission_id", "card_id", "mode", "age", "park", "difficulty",
+    "started_at", "ended_at", "square_id", "crossed",
+  ],
+};
 const MAX_TEXT = 60;
 const MAX_NOTE = 200;
-const MAX_PER_HOUR = 300; // across all players; guards against floods
+// Across all players; guards against floods.
+const MAX_PER_HOUR = { suggestions: 300, results: 300 };
 
-const MODES = ["cynic", "fan", "any"];
+const SQUARE_MODES = ["cynic", "fan", "any"];
+const CARD_MODES = ["cynic", "fan", "mixed"];
 const AGES = ["child", "adult"];
+const DIFFICULTIES = ["any", "easy", "medium", "hard"];
 const PARKS = [
   "any", "magic_kingdom", "epcot", "hollywood_studios", "animal_kingdom",
   "disney_springs", "typhoon_lagoon", "blizzard_beach",
@@ -26,7 +36,9 @@ function doPost(e) {
   try {
     const body = JSON.parse(e.postData.contents);
     if (body.type === "suggestion") return json(addSuggestion(body));
-    if (body.type === "list_suggestions") return json(listSuggestions(body));
+    if (body.type === "result") return json(addResult(body));
+    if (body.type === "list_suggestions") return json(listRows(body, "suggestions"));
+    if (body.type === "list_results") return json(listRows(body, "results"));
     return json({ ok: false, error: "unknown request type" });
   } catch (err) {
     return json({ ok: false, error: "bad request" });
@@ -35,7 +47,7 @@ function doPost(e) {
 
 // Health check: open the web app URL in a browser to confirm it's deployed.
 function doGet() {
-  return json({ ok: true, service: "parkbingo" });
+  return json({ ok: true, service: "parkbingo", accepts: ["suggestion", "result"] });
 }
 
 function addSuggestion(body) {
@@ -45,58 +57,105 @@ function addSuggestion(body) {
   const s = {
     submission_id: clean(body.submission_id, 64),
     text: clean(body.text, MAX_TEXT),
-    mode: body.mode,
-    age: body.age,
-    park: body.park,
     note: clean(body.note, MAX_NOTE),
   };
-  if (!/^[A-Za-z0-9-]{8,64}$/.test(s.submission_id)) return rejected("invalid id");
+  if (!validId(s.submission_id)) return rejected("invalid id");
   if (s.text.length < 3) return rejected("text too short");
-  if (MODES.indexOf(s.mode) < 0) return rejected("invalid mode");
-  if (AGES.indexOf(s.age) < 0) return rejected("invalid age");
-  if (PARKS.indexOf(s.park) < 0) return rejected("invalid park");
+  if (SQUARE_MODES.indexOf(body.mode) < 0) return rejected("invalid mode");
+  if (AGES.indexOf(body.age) < 0) return rejected("invalid age");
+  if (PARKS.indexOf(body.park) < 0) return rejected("invalid park");
 
+  return appendRows("suggestions", s.submission_id, [[
+    new Date().toISOString(), s.submission_id, asText(s.text), body.mode, body.age,
+    body.park, asText(s.note), "",
+  ]]);
+}
+
+function addResult(body) {
+  const id = clean(body.submission_id, 64);
+  if (!validId(id)) return rejected("invalid id");
+  if (!/^[0-9a-f]{6}$/.test(body.card_id)) return rejected("invalid card id");
+  if (CARD_MODES.indexOf(body.mode) < 0) return rejected("invalid mode");
+  if (AGES.indexOf(body.age) < 0) return rejected("invalid age");
+  if (PARKS.indexOf(body.park) < 0) return rejected("invalid park");
+  if (DIFFICULTIES.indexOf(body.difficulty) < 0) return rejected("invalid difficulty");
+
+  const started = Date.parse(body.started_at);
+  const ended = Date.parse(body.ended_at);
+  if (isNaN(started) || isNaN(ended) || ended < started) return rejected("invalid times");
+
+  const squares = body.squares;
+  if (!Array.isArray(squares) || squares.length < 1 || squares.length > 48) {
+    return rejected("invalid squares");
+  }
+  const seen = {};
+  for (let i = 0; i < squares.length; i++) {
+    const sq = squares[i];
+    if (!sq || !/^sq\d{4}$/.test(sq.id) || typeof sq.crossed !== "boolean" || seen[sq.id]) {
+      return rejected("invalid squares");
+    }
+    seen[sq.id] = true;
+  }
+
+  const received = new Date().toISOString();
+  const startedIso = new Date(started).toISOString();
+  const endedIso = new Date(ended).toISOString();
+  const rows = squares.map(function (sq) {
+    return [
+      received, id, body.card_id, body.mode, body.age, body.park, body.difficulty,
+      startedIso, endedIso, sq.id, sq.crossed,
+    ];
+  });
+  return appendRows("results", id, rows);
+}
+
+// Append rows for one submission, skipping repeats of the same submission_id.
+function appendRows(kind, submissionId, rows) {
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
-    const sheet = getSheet();
+    const sheet = getSheet(kind);
     // The app retries when offline, so the same submission can arrive twice.
-    const seen = sheet.getRange("B:B").createTextFinder(s.submission_id)
+    const repeat = sheet.getRange("B:B").createTextFinder(submissionId)
       .matchEntireCell(true).findNext();
-    if (seen) return { ok: true, duplicate: true };
+    if (repeat) return { ok: true, duplicate: true };
 
     const cache = CacheService.getScriptCache();
-    const hourKey = "count-" + Math.floor(Date.now() / 3600000);
+    const hourKey = kind + "-" + Math.floor(Date.now() / 3600000);
     const count = Number(cache.get(hourKey) || 0);
-    if (count >= MAX_PER_HOUR) return { ok: false, error: "busy", retry: true };
+    if (count >= MAX_PER_HOUR[kind]) return { ok: false, error: "busy", retry: true };
     cache.put(hourKey, String(count + 1), 3600);
 
-    sheet.appendRow([
-      new Date().toISOString(), s.submission_id, asText(s.text), s.mode, s.age,
-      s.park, asText(s.note), "",
-    ]);
+    const start = sheet.getLastRow() + 1;
+    const shortBy = start + rows.length - 1 - sheet.getMaxRows();
+    if (shortBy > 0) sheet.insertRowsAfter(sheet.getMaxRows(), Math.max(shortBy, 500));
+    sheet.getRange(start, 1, rows.length, rows[0].length).setValues(rows);
     return { ok: true };
   } finally {
     lock.releaseLock();
   }
 }
 
-function listSuggestions(body) {
+function listRows(body, kind) {
   const token = PropertiesService.getScriptProperties().getProperty("READ_TOKEN");
   if (!token || body.token !== token) return { ok: false, error: "unauthorized" };
 
-  const values = getSheet().getDataRange().getDisplayValues();
+  const columns = SHEETS[kind];
+  const values = getSheet(kind).getDataRange().getDisplayValues();
   const rows = values.slice(1).map(function (row) {
     const out = {};
-    COLUMNS.forEach(function (name, i) { out[name] = row[i] || ""; });
+    columns.forEach(function (name, i) { out[name] = row[i] || ""; });
     return out;
   });
-  return { ok: true, suggestions: rows };
+  const out = { ok: true };
+  out[kind] = rows;
+  return out;
 }
 
 /**
  * Run once from the Apps Script editor (select it and click Run). Creates the
- * private token that fetch_suggestions() uses and prints it to the log.
+ * private token that fetch_suggestions() and fetch_results() use and prints it
+ * to the log. Running it again replaces the token.
  */
 function createReadToken() {
   const token = (Utilities.getUuid() + Utilities.getUuid()).replace(/-/g, "");
@@ -104,15 +163,22 @@ function createReadToken() {
   Logger.log("PARKBINGO_TOKEN=" + token);
 }
 
-function getSheet() {
+function getSheet(kind) {
   const book = SpreadsheetApp.getActiveSpreadsheet();
-  let sheet = book.getSheetByName(SUGGESTIONS_SHEET);
+  let sheet = book.getSheetByName(kind);
   if (!sheet) {
-    sheet = book.insertSheet(SUGGESTIONS_SHEET);
-    sheet.appendRow(COLUMNS);
+    const columns = SHEETS[kind];
+    sheet = book.insertSheet(kind);
+    // Keep timestamps and ids as plain text so they read back unchanged.
+    sheet.getRange(1, 1, sheet.getMaxRows(), columns.length).setNumberFormat("@");
+    sheet.appendRow(columns);
     sheet.setFrozenRows(1);
   }
   return sheet;
+}
+
+function validId(id) {
+  return /^[A-Za-z0-9-]{8,64}$/.test(id);
 }
 
 function clean(value, maxLength) {

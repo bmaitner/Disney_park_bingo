@@ -19,25 +19,7 @@
 #' }
 fetch_suggestions <- function(endpoint = Sys.getenv("PARKBINGO_ENDPOINT"),
                               token = Sys.getenv("PARKBINGO_TOKEN")) {
-  if (!nzchar(endpoint) || !nzchar(token)) {
-    stop("Set PARKBINGO_ENDPOINT and PARKBINGO_TOKEN (see backend/README.md), ",
-         "or pass `endpoint` and `token`.", call. = FALSE)
-  }
-  if (!requireNamespace("curl", quietly = TRUE)) {
-    stop("fetch_suggestions() requires the 'curl' package.", call. = FALSE)
-  }
-  # POST keeps the token out of URLs and logs. Apps Script answers with a
-  # redirect that curl follows as a GET.
-  handle <- curl::new_handle(followlocation = TRUE)
-  curl::handle_setheaders(handle, "Content-Type" = "text/plain;charset=utf-8")
-  curl::handle_setopt(handle, postfields = jsonlite::toJSON(
-    list(type = "list_suggestions", token = token), auto_unbox = TRUE
-  ))
-  response <- curl::curl_fetch_memory(endpoint, handle = handle)
-  if (response$status_code >= 400) {
-    stop("Suggestion inbox returned HTTP ", response$status_code, call. = FALSE)
-  }
-  parse_suggestions(rawToChar(response$content))
+  parse_suggestions(inbox_request("list_suggestions", endpoint, token))
 }
 
 suggestion_columns <- c(
@@ -45,27 +27,7 @@ suggestion_columns <- c(
 )
 
 parse_suggestions <- function(json) {
-  result <- tryCatch(
-    jsonlite::fromJSON(json, simplifyVector = TRUE),
-    error = function(e) {
-      stop("Suggestion inbox didn't return JSON. Check that PARKBINGO_ENDPOINT ",
-           "is the web app URL ending in /exec.", call. = FALSE)
-    }
-  )
-  if (!isTRUE(result$ok)) {
-    stop("Suggestion inbox error: ", result$error %||% "unknown", call. = FALSE)
-  }
-  rows <- result$suggestions
-  if (length(rows) == 0) {
-    return(as.data.frame(
-      stats::setNames(replicate(length(suggestion_columns), character(),
-                                simplify = FALSE), suggestion_columns),
-      stringsAsFactors = FALSE
-    ))
-  }
-  rows <- as.data.frame(rows, stringsAsFactors = FALSE)
-  rows[setdiff(suggestion_columns, names(rows))] <- ""
-  rows[suggestion_columns]
+  parse_inbox(json, "suggestions", suggestion_columns)
 }
 
 #' Add squares to the squares table
@@ -114,4 +76,3 @@ add_squares <- function(squares, new, p_crossed = 0.5) {
   validate_squares(rbind(squares, rows[names(squares)]))
 }
 
-`%||%` <- function(x, y) if (is.null(x)) y else x

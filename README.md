@@ -92,8 +92,12 @@ account. Suggestions go to a private Google Sheet for you to review; see
 `fetch_suggestions()` and add the ones you like with `add_squares()`. The button
 only appears once `app/config.js` has the inbox URL.
 
-The app keeps finished cards (which squares were crossed off) on the phone for
-future feedback collection with `update_difficulty()`.
+**Sharing results.** When players tap "Done playing", the app shows how they did
+and offers to share the card's results anonymously. It sends which squares were
+crossed off, the card settings, and start and finish times. Shared results go to
+the same inbox, and `fetch_results()` returns them ready for `update_difficulty()`
+(see below). Results wait on the phone until there's signal. Every card, shared or
+not, is also kept on the phone (the last 100).
 
 ## The squares table
 
@@ -120,7 +124,18 @@ squares to fill a 5x5 card.
 
 ## Refining difficulty from feedback
 
-Every printed card shows its id at the bottom. Keep the card objects, or save
+**From the phone app**, pull shared results and update the table:
+
+```r
+results <- fetch_results(min_minutes = 30)
+squares <- update_difficulty(bingo_squares(), results)
+write_squares(squares, "inst/extdata/bingo_squares.csv")
+```
+
+Then run `Rscript tools/update_app.R`. See [`backend/README.md`](backend/README.md)
+for tracking which results you've already applied.
+
+**From paper cards**, every printed card shows its id at the bottom. Keep the card objects, or save
 them with `saveRDS()`. After the park day, record what each player crossed off
 and fold the results back into the table:
 
