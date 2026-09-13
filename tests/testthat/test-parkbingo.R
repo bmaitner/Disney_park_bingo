@@ -268,4 +268,5 @@ test_that("result responses are parsed for update_difficulty", {
   expect_error(parkbingo:::parse_results('{"ok":false,"error":"unknown request type"}'),
                "redeploy")
   expect_error(fetch_results(endpoint = "", token = ""), "PARKBINGO_ENDPOINT")
+  expect_equal(formals(fetch_results)$min_minutes, 60)
 })

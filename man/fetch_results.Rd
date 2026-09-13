@@ -7,7 +7,7 @@
 fetch_results(
   endpoint = Sys.getenv("PARKBINGO_ENDPOINT"),
   token = Sys.getenv("PARKBINGO_TOKEN"),
-  min_minutes = 0
+  min_minutes = 60
 )
 }
 \arguments{
@@ -17,7 +17,8 @@ fetch_results(
 \item{token}{The private read token created by \code{createReadToken()} in the
 script. Defaults to the \code{PARKBINGO_TOKEN} environment variable.}
 
-\item{min_minutes}{Drop cards played for less than this many minutes.}
+\item{min_minutes}{Drop cards played for less than this many minutes. Use
+\code{0} to keep every card.}
 }
 \value{
 A data frame with one row per square per card: \code{card_id},
@@ -32,12 +33,12 @@ Reads the results players shared from the phone app when they tapped
 \code{\link[=update_difficulty]{update_difficulty()}}. Requires the curl package.
 }
 \details{
-Cards finished within a few minutes of being dealt usually weren't really
-played, so consider setting \code{min_minutes}.
+By default, cards played for less than an hour are dropped, since cards
+finished soon after being dealt usually weren't really played.
 }
 \examples{
 \dontrun{
-results <- fetch_results(min_minutes = 30)
+results <- fetch_results()
 squares <- update_difficulty(bingo_squares(), results)
 }
 }

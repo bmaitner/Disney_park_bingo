@@ -64,7 +64,7 @@ Then run `Rscript tools/update_app.R` so the app gets the new squares.
 ## Using results
 
 ```r
-results <- fetch_results(min_minutes = 30)   # skip cards that weren't really played
+results <- fetch_results()   # skips cards played for under an hour; min_minutes = 0 keeps all
 squares <- update_difficulty(bingo_squares(), results)
 write_squares(squares, "inst/extdata/bingo_squares.csv")
 ```

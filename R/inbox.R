@@ -5,11 +5,12 @@
 #' `backend/README.md`. Each row is one square on one card, ready for
 #' [update_difficulty()]. Requires the curl package.
 #'
-#' Cards finished within a few minutes of being dealt usually weren't really
-#' played, so consider setting `min_minutes`.
+#' By default, cards played for less than an hour are dropped, since cards
+#' finished soon after being dealt usually weren't really played.
 #'
 #' @inheritParams fetch_suggestions
-#' @param min_minutes Drop cards played for less than this many minutes.
+#' @param min_minutes Drop cards played for less than this many minutes. Use
+#'   `0` to keep every card.
 #' @return A data frame with one row per square per card: `card_id`,
 #'   `submission_id`, `received_at`, `mode`, `age`, `park`, `difficulty`
 #'   (the card's settings), `started_at`, `ended_at`, `minutes` (time played),
@@ -18,12 +19,12 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' results <- fetch_results(min_minutes = 30)
+#' results <- fetch_results()
 #' squares <- update_difficulty(bingo_squares(), results)
 #' }
 fetch_results <- function(endpoint = Sys.getenv("PARKBINGO_ENDPOINT"),
                           token = Sys.getenv("PARKBINGO_TOKEN"),
-                          min_minutes = 0) {
+                          min_minutes = 60) {
   parse_results(inbox_request("list_results", endpoint, token), min_minutes)
 }
 

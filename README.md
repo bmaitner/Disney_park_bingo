@@ -127,7 +127,7 @@ squares to fill a 5x5 card.
 **From the phone app**, pull shared results and update the table:
 
 ```r
-results <- fetch_results(min_minutes = 30)
+results <- fetch_results()   # skips cards played for under an hour
 squares <- update_difficulty(bingo_squares(), results)
 write_squares(squares, "inst/extdata/bingo_squares.csv")
 ```
