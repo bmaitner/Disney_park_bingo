@@ -154,8 +154,7 @@ make_bingo_cards <- function(n, ..., seed = NULL) {
 
 #' @export
 print.bingo_card <- function(x, width = 16, ...) {
-  cat(sprintf("<bingo_card %s> %s | %s | %s\n", x$card_id, x$mode, x$age,
-              park_label(x$park)))
+  cat(sprintf("<bingo_card %s> %s\n", x$card_id, card_audience(x)))
   labels <- x$grid
   labels[is.na(labels)] <- if (x$free_space) "FREE" else ""
   wrapped <- lapply(labels, function(s) {
@@ -185,10 +184,31 @@ print.bingo_card <- function(x, width = 16, ...) {
 print.bingo_card_set <- function(x, ...) {
   cat(sprintf("<bingo_card_set> %d cards\n", length(x)))
   for (card in x) {
-    cat(sprintf("  %s: %s | %s | %s\n", card$card_id, card$mode, card$age,
-                park_label(card$park)))
+    cat(sprintf("  %s: %s\n", card$card_id, card_audience(card)))
   }
   invisible(x)
+}
+
+#' Describe a card's intended audience
+#'
+#' Builds a short description of who a card is for from the settings it was
+#' made with, used as the default subtitle when printing.
+#'
+#' @param card A `bingo_card`.
+#' @return A single string such as `"Adult fans at any park"` or
+#'   `"Child cynics at Magic Kingdom"`.
+#' @export
+#' @examples
+#' card_audience(make_bingo_card(mode = "fan", age = "child", park = "EPCOT"))
+card_audience <- function(card) {
+  if (!inherits(card, "bingo_card")) {
+    stop("`card` must be a bingo_card.", call. = FALSE)
+  }
+  who <- switch(card$mode, cynic = "cynics", fan = "fans",
+                mixed = "fans and cynics")
+  where <- if (card$park == "any") "any park" else park_label(card$park)
+  sprintf("%s %s at %s", if (card$age == "child") "Child" else "Adult", who,
+          where)
 }
 
 difficulty_range <- function(difficulty) {

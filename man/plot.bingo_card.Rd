@@ -6,7 +6,7 @@
 \usage{
 \method{plot}{bingo_card}(
   x,
-  title = NULL,
+  title = "Theme park bingo",
   subtitle = NULL,
   line_col = "#8FD6D6",
   text_col = "#3B2A20",
@@ -21,10 +21,11 @@
 \arguments{
 \item{x}{A \code{bingo_card}.}
 
-\item{title}{Title above the grid. Defaults to \code{"disney <mode> bingo"}.}
+\item{title}{Title above the grid.}
 
-\item{subtitle}{Line under the title. Defaults to the park name for
-park-specific cards.}
+\item{subtitle}{Line under the title. Defaults to the card's intended
+audience from \code{\link[=card_audience]{card_audience()}}, e.g. \code{"Child fans at EPCOT"}. Use \code{""}
+for no subtitle.}
 
 \item{line_col, text_col}{Colors of the grid lines and text.}
 

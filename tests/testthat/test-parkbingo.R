@@ -127,3 +127,14 @@ test_that("cards render to PDF", {
   expect_gt(file.size(pdf_file), 1000)
   expect_output(print(cards[[1]]), "bingo_card")
 })
+
+test_that("card audience describes the settings", {
+  expect_equal(card_audience(make_bingo_card(mode = "fan", seed = 1)),
+               "Adult fans at any park")
+  expect_equal(card_audience(make_bingo_card(mode = "fan", age = "child",
+                                             park = "EPCOT", seed = 1)),
+               "Child fans at EPCOT")
+  expect_equal(card_audience(make_bingo_card(mode = "mixed", park = "MK",
+                                             seed = 1)),
+               "Adult fans and cynics at Magic Kingdom")
+})

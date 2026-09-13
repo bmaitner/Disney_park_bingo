@@ -5,9 +5,10 @@
 #' lines. Labels are wrapped and shrunk to fit their cells.
 #'
 #' @param x A `bingo_card`.
-#' @param title Title above the grid. Defaults to `"disney <mode> bingo"`.
-#' @param subtitle Line under the title. Defaults to the park name for
-#'   park-specific cards.
+#' @param title Title above the grid.
+#' @param subtitle Line under the title. Defaults to the card's intended
+#'   audience from [card_audience()], e.g. `"Child fans at EPCOT"`. Use `""`
+#'   for no subtitle.
 #' @param line_col,text_col Colors of the grid lines and text.
 #' @param title_family,text_family Font families for the title and the
 #'   squares. A script font installed on your system (e.g. `"Segoe Script"` on
@@ -22,7 +23,7 @@
 #' card <- make_bingo_card(seed = 1)
 #' plot(card)
 plot.bingo_card <- function(x,
-                            title = NULL,
+                            title = "Theme park bingo",
                             subtitle = NULL,
                             line_col = "#8FD6D6",
                             text_col = "#3B2A20",
@@ -32,13 +33,7 @@ plot.bingo_card <- function(x,
                             footer = TRUE,
                             newpage = TRUE,
                             ...) {
-  if (is.null(title)) {
-    title <- if (x$mode == "mixed") "disney park bingo" else
-      sprintf("disney %s bingo", x$mode)
-  }
-  if (is.null(subtitle)) {
-    subtitle <- if (x$park == "any") "" else park_label(x$park)
-  }
+  if (is.null(subtitle)) subtitle <- card_audience(x)
   if (newpage) grid::grid.newpage()
 
   page_w <- grid::convertWidth(grid::unit(1, "npc"), "inches", valueOnly = TRUE)
@@ -53,7 +48,7 @@ plot.bingo_card <- function(x,
   # Title and subtitle
   title_size <- fit_fontsize(title, side, cell * 0.9, side * 7,
                              title_family, "italic")
-  subtitle_size <- title_size * 0.3
+  subtitle_size <- title_size * 0.35
   subtitle_y <- grid_top + cell * 0.1
   title_y <- subtitle_y
   if (nzchar(subtitle)) {
