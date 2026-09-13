@@ -3,3 +3,6 @@
 ^prototype$
 ^README\.Rmd$
 ^LICENSE\.md$
+^app$
+^tools$
+^\.claude$

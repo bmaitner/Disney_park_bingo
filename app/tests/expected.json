@@ -1,0 +1,1538 @@
+[
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "any",
+    "difficulty": "any",
+    "n": 69,
+    "audience": "Adult cynics at any park"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "any",
+    "difficulty": "any",
+    "n": 49,
+    "audience": "Adult fans at any park"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "any",
+    "difficulty": "any",
+    "n": 108,
+    "audience": "Adult fans and cynics at any park"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "any",
+    "difficulty": "any",
+    "n": 44,
+    "audience": "Child cynics at any park"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "any",
+    "difficulty": "any",
+    "n": 48,
+    "audience": "Child fans at any park"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "any",
+    "difficulty": "any",
+    "n": 82,
+    "audience": "Child fans and cynics at any park"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "magic_kingdom",
+    "difficulty": "any",
+    "n": 74,
+    "audience": "Adult cynics at Magic Kingdom"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "magic_kingdom",
+    "difficulty": "any",
+    "n": 61,
+    "audience": "Adult fans at Magic Kingdom"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "magic_kingdom",
+    "difficulty": "any",
+    "n": 123,
+    "audience": "Adult fans and cynics at Magic Kingdom"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "magic_kingdom",
+    "difficulty": "any",
+    "n": 49,
+    "audience": "Child cynics at Magic Kingdom"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "magic_kingdom",
+    "difficulty": "any",
+    "n": 60,
+    "audience": "Child fans at Magic Kingdom"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "magic_kingdom",
+    "difficulty": "any",
+    "n": 97,
+    "audience": "Child fans and cynics at Magic Kingdom"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "epcot",
+    "difficulty": "any",
+    "n": 73,
+    "audience": "Adult cynics at EPCOT"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "epcot",
+    "difficulty": "any",
+    "n": 60,
+    "audience": "Adult fans at EPCOT"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "epcot",
+    "difficulty": "any",
+    "n": 122,
+    "audience": "Adult fans and cynics at EPCOT"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "epcot",
+    "difficulty": "any",
+    "n": 46,
+    "audience": "Child cynics at EPCOT"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "epcot",
+    "difficulty": "any",
+    "n": 57,
+    "audience": "Child fans at EPCOT"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "epcot",
+    "difficulty": "any",
+    "n": 93,
+    "audience": "Child fans and cynics at EPCOT"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "hollywood_studios",
+    "difficulty": "any",
+    "n": 71,
+    "audience": "Adult cynics at Hollywood Studios"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "hollywood_studios",
+    "difficulty": "any",
+    "n": 57,
+    "audience": "Adult fans at Hollywood Studios"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "hollywood_studios",
+    "difficulty": "any",
+    "n": 117,
+    "audience": "Adult fans and cynics at Hollywood Studios"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "hollywood_studios",
+    "difficulty": "any",
+    "n": 46,
+    "audience": "Child cynics at Hollywood Studios"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "hollywood_studios",
+    "difficulty": "any",
+    "n": 56,
+    "audience": "Child fans at Hollywood Studios"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "hollywood_studios",
+    "difficulty": "any",
+    "n": 91,
+    "audience": "Child fans and cynics at Hollywood Studios"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "animal_kingdom",
+    "difficulty": "any",
+    "n": 74,
+    "audience": "Adult cynics at Animal Kingdom"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "animal_kingdom",
+    "difficulty": "any",
+    "n": 55,
+    "audience": "Adult fans at Animal Kingdom"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "animal_kingdom",
+    "difficulty": "any",
+    "n": 117,
+    "audience": "Adult fans and cynics at Animal Kingdom"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "animal_kingdom",
+    "difficulty": "any",
+    "n": 49,
+    "audience": "Child cynics at Animal Kingdom"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "animal_kingdom",
+    "difficulty": "any",
+    "n": 54,
+    "audience": "Child fans at Animal Kingdom"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "animal_kingdom",
+    "difficulty": "any",
+    "n": 91,
+    "audience": "Child fans and cynics at Animal Kingdom"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "disney_springs",
+    "difficulty": "any",
+    "n": 70,
+    "audience": "Adult cynics at Disney Springs"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "disney_springs",
+    "difficulty": "any",
+    "n": 54,
+    "audience": "Adult fans at Disney Springs"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "disney_springs",
+    "difficulty": "any",
+    "n": 114,
+    "audience": "Adult fans and cynics at Disney Springs"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "disney_springs",
+    "difficulty": "any",
+    "n": 45,
+    "audience": "Child cynics at Disney Springs"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "disney_springs",
+    "difficulty": "any",
+    "n": 53,
+    "audience": "Child fans at Disney Springs"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "disney_springs",
+    "difficulty": "any",
+    "n": 88,
+    "audience": "Child fans and cynics at Disney Springs"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "typhoon_lagoon",
+    "difficulty": "any",
+    "n": 74,
+    "audience": "Adult cynics at Typhoon Lagoon"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "typhoon_lagoon",
+    "difficulty": "any",
+    "n": 51,
+    "audience": "Adult fans at Typhoon Lagoon"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "typhoon_lagoon",
+    "difficulty": "any",
+    "n": 113,
+    "audience": "Adult fans and cynics at Typhoon Lagoon"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "typhoon_lagoon",
+    "difficulty": "any",
+    "n": 49,
+    "audience": "Child cynics at Typhoon Lagoon"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "typhoon_lagoon",
+    "difficulty": "any",
+    "n": 50,
+    "audience": "Child fans at Typhoon Lagoon"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "typhoon_lagoon",
+    "difficulty": "any",
+    "n": 87,
+    "audience": "Child fans and cynics at Typhoon Lagoon"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "blizzard_beach",
+    "difficulty": "any",
+    "n": 73,
+    "audience": "Adult cynics at Blizzard Beach"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "blizzard_beach",
+    "difficulty": "any",
+    "n": 51,
+    "audience": "Adult fans at Blizzard Beach"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "blizzard_beach",
+    "difficulty": "any",
+    "n": 113,
+    "audience": "Adult fans and cynics at Blizzard Beach"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "blizzard_beach",
+    "difficulty": "any",
+    "n": 48,
+    "audience": "Child cynics at Blizzard Beach"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "blizzard_beach",
+    "difficulty": "any",
+    "n": 50,
+    "audience": "Child fans at Blizzard Beach"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "blizzard_beach",
+    "difficulty": "any",
+    "n": 87,
+    "audience": "Child fans and cynics at Blizzard Beach"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "any",
+    "difficulty": "easy",
+    "n": 22,
+    "audience": "Adult cynics at any park"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "any",
+    "difficulty": "easy",
+    "n": 20,
+    "audience": "Adult fans at any park"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "any",
+    "difficulty": "easy",
+    "n": 37,
+    "audience": "Adult fans and cynics at any park"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "any",
+    "difficulty": "easy",
+    "n": 20,
+    "audience": "Child cynics at any park"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "any",
+    "difficulty": "easy",
+    "n": 19,
+    "audience": "Child fans at any park"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "any",
+    "difficulty": "easy",
+    "n": 34,
+    "audience": "Child fans and cynics at any park"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "magic_kingdom",
+    "difficulty": "easy",
+    "n": 23,
+    "audience": "Adult cynics at Magic Kingdom"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "magic_kingdom",
+    "difficulty": "easy",
+    "n": 24,
+    "audience": "Adult fans at Magic Kingdom"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "magic_kingdom",
+    "difficulty": "easy",
+    "n": 42,
+    "audience": "Adult fans and cynics at Magic Kingdom"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "magic_kingdom",
+    "difficulty": "easy",
+    "n": 21,
+    "audience": "Child cynics at Magic Kingdom"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "magic_kingdom",
+    "difficulty": "easy",
+    "n": 23,
+    "audience": "Child fans at Magic Kingdom"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "magic_kingdom",
+    "difficulty": "easy",
+    "n": 39,
+    "audience": "Child fans and cynics at Magic Kingdom"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "epcot",
+    "difficulty": "easy",
+    "n": 22,
+    "audience": "Adult cynics at EPCOT"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "epcot",
+    "difficulty": "easy",
+    "n": 23,
+    "audience": "Adult fans at EPCOT"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "epcot",
+    "difficulty": "easy",
+    "n": 40,
+    "audience": "Adult fans and cynics at EPCOT"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "epcot",
+    "difficulty": "easy",
+    "n": 20,
+    "audience": "Child cynics at EPCOT"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "epcot",
+    "difficulty": "easy",
+    "n": 22,
+    "audience": "Child fans at EPCOT"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "epcot",
+    "difficulty": "easy",
+    "n": 37,
+    "audience": "Child fans and cynics at EPCOT"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "hollywood_studios",
+    "difficulty": "easy",
+    "n": 24,
+    "audience": "Adult cynics at Hollywood Studios"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "hollywood_studios",
+    "difficulty": "easy",
+    "n": 21,
+    "audience": "Adult fans at Hollywood Studios"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "hollywood_studios",
+    "difficulty": "easy",
+    "n": 39,
+    "audience": "Adult fans and cynics at Hollywood Studios"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "hollywood_studios",
+    "difficulty": "easy",
+    "n": 22,
+    "audience": "Child cynics at Hollywood Studios"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "hollywood_studios",
+    "difficulty": "easy",
+    "n": 20,
+    "audience": "Child fans at Hollywood Studios"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "hollywood_studios",
+    "difficulty": "easy",
+    "n": 36,
+    "audience": "Child fans and cynics at Hollywood Studios"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "animal_kingdom",
+    "difficulty": "easy",
+    "n": 23,
+    "audience": "Adult cynics at Animal Kingdom"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "animal_kingdom",
+    "difficulty": "easy",
+    "n": 22,
+    "audience": "Adult fans at Animal Kingdom"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "animal_kingdom",
+    "difficulty": "easy",
+    "n": 40,
+    "audience": "Adult fans and cynics at Animal Kingdom"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "animal_kingdom",
+    "difficulty": "easy",
+    "n": 21,
+    "audience": "Child cynics at Animal Kingdom"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "animal_kingdom",
+    "difficulty": "easy",
+    "n": 21,
+    "audience": "Child fans at Animal Kingdom"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "animal_kingdom",
+    "difficulty": "easy",
+    "n": 37,
+    "audience": "Child fans and cynics at Animal Kingdom"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "disney_springs",
+    "difficulty": "easy",
+    "n": 22,
+    "audience": "Adult cynics at Disney Springs"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "disney_springs",
+    "difficulty": "easy",
+    "n": 21,
+    "audience": "Adult fans at Disney Springs"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "disney_springs",
+    "difficulty": "easy",
+    "n": 38,
+    "audience": "Adult fans and cynics at Disney Springs"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "disney_springs",
+    "difficulty": "easy",
+    "n": 20,
+    "audience": "Child cynics at Disney Springs"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "disney_springs",
+    "difficulty": "easy",
+    "n": 20,
+    "audience": "Child fans at Disney Springs"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "disney_springs",
+    "difficulty": "easy",
+    "n": 35,
+    "audience": "Child fans and cynics at Disney Springs"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "typhoon_lagoon",
+    "difficulty": "easy",
+    "n": 23,
+    "audience": "Adult cynics at Typhoon Lagoon"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "typhoon_lagoon",
+    "difficulty": "easy",
+    "n": 21,
+    "audience": "Adult fans at Typhoon Lagoon"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "typhoon_lagoon",
+    "difficulty": "easy",
+    "n": 38,
+    "audience": "Adult fans and cynics at Typhoon Lagoon"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "typhoon_lagoon",
+    "difficulty": "easy",
+    "n": 21,
+    "audience": "Child cynics at Typhoon Lagoon"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "typhoon_lagoon",
+    "difficulty": "easy",
+    "n": 20,
+    "audience": "Child fans at Typhoon Lagoon"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "typhoon_lagoon",
+    "difficulty": "easy",
+    "n": 35,
+    "audience": "Child fans and cynics at Typhoon Lagoon"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "blizzard_beach",
+    "difficulty": "easy",
+    "n": 22,
+    "audience": "Adult cynics at Blizzard Beach"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "blizzard_beach",
+    "difficulty": "easy",
+    "n": 20,
+    "audience": "Adult fans at Blizzard Beach"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "blizzard_beach",
+    "difficulty": "easy",
+    "n": 37,
+    "audience": "Adult fans and cynics at Blizzard Beach"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "blizzard_beach",
+    "difficulty": "easy",
+    "n": 20,
+    "audience": "Child cynics at Blizzard Beach"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "blizzard_beach",
+    "difficulty": "easy",
+    "n": 19,
+    "audience": "Child fans at Blizzard Beach"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "blizzard_beach",
+    "difficulty": "easy",
+    "n": 34,
+    "audience": "Child fans and cynics at Blizzard Beach"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "any",
+    "difficulty": "medium",
+    "n": 43,
+    "audience": "Adult cynics at any park"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "any",
+    "difficulty": "medium",
+    "n": 29,
+    "audience": "Adult fans at any park"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "any",
+    "difficulty": "medium",
+    "n": 67,
+    "audience": "Adult fans and cynics at any park"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "any",
+    "difficulty": "medium",
+    "n": 24,
+    "audience": "Child cynics at any park"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "any",
+    "difficulty": "medium",
+    "n": 29,
+    "audience": "Child fans at any park"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "any",
+    "difficulty": "medium",
+    "n": 48,
+    "audience": "Child fans and cynics at any park"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "magic_kingdom",
+    "difficulty": "medium",
+    "n": 48,
+    "audience": "Adult cynics at Magic Kingdom"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "magic_kingdom",
+    "difficulty": "medium",
+    "n": 39,
+    "audience": "Adult fans at Magic Kingdom"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "magic_kingdom",
+    "difficulty": "medium",
+    "n": 80,
+    "audience": "Adult fans and cynics at Magic Kingdom"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "magic_kingdom",
+    "difficulty": "medium",
+    "n": 29,
+    "audience": "Child cynics at Magic Kingdom"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "magic_kingdom",
+    "difficulty": "medium",
+    "n": 39,
+    "audience": "Child fans at Magic Kingdom"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "magic_kingdom",
+    "difficulty": "medium",
+    "n": 61,
+    "audience": "Child fans and cynics at Magic Kingdom"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "epcot",
+    "difficulty": "medium",
+    "n": 47,
+    "audience": "Adult cynics at EPCOT"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "epcot",
+    "difficulty": "medium",
+    "n": 37,
+    "audience": "Adult fans at EPCOT"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "epcot",
+    "difficulty": "medium",
+    "n": 78,
+    "audience": "Adult fans and cynics at EPCOT"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "epcot",
+    "difficulty": "medium",
+    "n": 26,
+    "audience": "Child cynics at EPCOT"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "epcot",
+    "difficulty": "medium",
+    "n": 35,
+    "audience": "Child fans at EPCOT"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "epcot",
+    "difficulty": "medium",
+    "n": 56,
+    "audience": "Child fans and cynics at EPCOT"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "hollywood_studios",
+    "difficulty": "medium",
+    "n": 45,
+    "audience": "Adult cynics at Hollywood Studios"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "hollywood_studios",
+    "difficulty": "medium",
+    "n": 35,
+    "audience": "Adult fans at Hollywood Studios"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "hollywood_studios",
+    "difficulty": "medium",
+    "n": 74,
+    "audience": "Adult fans and cynics at Hollywood Studios"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "hollywood_studios",
+    "difficulty": "medium",
+    "n": 26,
+    "audience": "Child cynics at Hollywood Studios"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "hollywood_studios",
+    "difficulty": "medium",
+    "n": 35,
+    "audience": "Child fans at Hollywood Studios"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "hollywood_studios",
+    "difficulty": "medium",
+    "n": 55,
+    "audience": "Child fans and cynics at Hollywood Studios"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "animal_kingdom",
+    "difficulty": "medium",
+    "n": 47,
+    "audience": "Adult cynics at Animal Kingdom"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "animal_kingdom",
+    "difficulty": "medium",
+    "n": 34,
+    "audience": "Adult fans at Animal Kingdom"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "animal_kingdom",
+    "difficulty": "medium",
+    "n": 74,
+    "audience": "Adult fans and cynics at Animal Kingdom"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "animal_kingdom",
+    "difficulty": "medium",
+    "n": 28,
+    "audience": "Child cynics at Animal Kingdom"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "animal_kingdom",
+    "difficulty": "medium",
+    "n": 34,
+    "audience": "Child fans at Animal Kingdom"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "animal_kingdom",
+    "difficulty": "medium",
+    "n": 55,
+    "audience": "Child fans and cynics at Animal Kingdom"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "disney_springs",
+    "difficulty": "medium",
+    "n": 43,
+    "audience": "Adult cynics at Disney Springs"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "disney_springs",
+    "difficulty": "medium",
+    "n": 33,
+    "audience": "Adult fans at Disney Springs"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "disney_springs",
+    "difficulty": "medium",
+    "n": 71,
+    "audience": "Adult fans and cynics at Disney Springs"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "disney_springs",
+    "difficulty": "medium",
+    "n": 24,
+    "audience": "Child cynics at Disney Springs"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "disney_springs",
+    "difficulty": "medium",
+    "n": 33,
+    "audience": "Child fans at Disney Springs"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "disney_springs",
+    "difficulty": "medium",
+    "n": 52,
+    "audience": "Child fans and cynics at Disney Springs"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "typhoon_lagoon",
+    "difficulty": "medium",
+    "n": 47,
+    "audience": "Adult cynics at Typhoon Lagoon"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "typhoon_lagoon",
+    "difficulty": "medium",
+    "n": 31,
+    "audience": "Adult fans at Typhoon Lagoon"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "typhoon_lagoon",
+    "difficulty": "medium",
+    "n": 71,
+    "audience": "Adult fans and cynics at Typhoon Lagoon"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "typhoon_lagoon",
+    "difficulty": "medium",
+    "n": 28,
+    "audience": "Child cynics at Typhoon Lagoon"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "typhoon_lagoon",
+    "difficulty": "medium",
+    "n": 31,
+    "audience": "Child fans at Typhoon Lagoon"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "typhoon_lagoon",
+    "difficulty": "medium",
+    "n": 52,
+    "audience": "Child fans and cynics at Typhoon Lagoon"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "blizzard_beach",
+    "difficulty": "medium",
+    "n": 46,
+    "audience": "Adult cynics at Blizzard Beach"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "blizzard_beach",
+    "difficulty": "medium",
+    "n": 31,
+    "audience": "Adult fans at Blizzard Beach"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "blizzard_beach",
+    "difficulty": "medium",
+    "n": 71,
+    "audience": "Adult fans and cynics at Blizzard Beach"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "blizzard_beach",
+    "difficulty": "medium",
+    "n": 27,
+    "audience": "Child cynics at Blizzard Beach"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "blizzard_beach",
+    "difficulty": "medium",
+    "n": 31,
+    "audience": "Child fans at Blizzard Beach"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "blizzard_beach",
+    "difficulty": "medium",
+    "n": 52,
+    "audience": "Child fans and cynics at Blizzard Beach"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "any",
+    "difficulty": "hard",
+    "n": 15,
+    "audience": "Adult cynics at any park"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "any",
+    "difficulty": "hard",
+    "n": 5,
+    "audience": "Adult fans at any park"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "any",
+    "difficulty": "hard",
+    "n": 20,
+    "audience": "Adult fans and cynics at any park"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "any",
+    "difficulty": "hard",
+    "n": 6,
+    "audience": "Child cynics at any park"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "any",
+    "difficulty": "hard",
+    "n": 5,
+    "audience": "Child fans at any park"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "any",
+    "difficulty": "hard",
+    "n": 11,
+    "audience": "Child fans and cynics at any park"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "magic_kingdom",
+    "difficulty": "hard",
+    "n": 15,
+    "audience": "Adult cynics at Magic Kingdom"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "magic_kingdom",
+    "difficulty": "hard",
+    "n": 6,
+    "audience": "Adult fans at Magic Kingdom"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "magic_kingdom",
+    "difficulty": "hard",
+    "n": 21,
+    "audience": "Adult fans and cynics at Magic Kingdom"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "magic_kingdom",
+    "difficulty": "hard",
+    "n": 6,
+    "audience": "Child cynics at Magic Kingdom"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "magic_kingdom",
+    "difficulty": "hard",
+    "n": 6,
+    "audience": "Child fans at Magic Kingdom"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "magic_kingdom",
+    "difficulty": "hard",
+    "n": 12,
+    "audience": "Child fans and cynics at Magic Kingdom"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "epcot",
+    "difficulty": "hard",
+    "n": 15,
+    "audience": "Adult cynics at EPCOT"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "epcot",
+    "difficulty": "hard",
+    "n": 7,
+    "audience": "Adult fans at EPCOT"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "epcot",
+    "difficulty": "hard",
+    "n": 22,
+    "audience": "Adult fans and cynics at EPCOT"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "epcot",
+    "difficulty": "hard",
+    "n": 6,
+    "audience": "Child cynics at EPCOT"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "epcot",
+    "difficulty": "hard",
+    "n": 7,
+    "audience": "Child fans at EPCOT"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "epcot",
+    "difficulty": "hard",
+    "n": 13,
+    "audience": "Child fans and cynics at EPCOT"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "hollywood_studios",
+    "difficulty": "hard",
+    "n": 15,
+    "audience": "Adult cynics at Hollywood Studios"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "hollywood_studios",
+    "difficulty": "hard",
+    "n": 8,
+    "audience": "Adult fans at Hollywood Studios"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "hollywood_studios",
+    "difficulty": "hard",
+    "n": 23,
+    "audience": "Adult fans and cynics at Hollywood Studios"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "hollywood_studios",
+    "difficulty": "hard",
+    "n": 6,
+    "audience": "Child cynics at Hollywood Studios"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "hollywood_studios",
+    "difficulty": "hard",
+    "n": 8,
+    "audience": "Child fans at Hollywood Studios"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "hollywood_studios",
+    "difficulty": "hard",
+    "n": 14,
+    "audience": "Child fans and cynics at Hollywood Studios"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "animal_kingdom",
+    "difficulty": "hard",
+    "n": 16,
+    "audience": "Adult cynics at Animal Kingdom"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "animal_kingdom",
+    "difficulty": "hard",
+    "n": 5,
+    "audience": "Adult fans at Animal Kingdom"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "animal_kingdom",
+    "difficulty": "hard",
+    "n": 21,
+    "audience": "Adult fans and cynics at Animal Kingdom"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "animal_kingdom",
+    "difficulty": "hard",
+    "n": 7,
+    "audience": "Child cynics at Animal Kingdom"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "animal_kingdom",
+    "difficulty": "hard",
+    "n": 5,
+    "audience": "Child fans at Animal Kingdom"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "animal_kingdom",
+    "difficulty": "hard",
+    "n": 12,
+    "audience": "Child fans and cynics at Animal Kingdom"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "disney_springs",
+    "difficulty": "hard",
+    "n": 16,
+    "audience": "Adult cynics at Disney Springs"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "disney_springs",
+    "difficulty": "hard",
+    "n": 6,
+    "audience": "Adult fans at Disney Springs"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "disney_springs",
+    "difficulty": "hard",
+    "n": 22,
+    "audience": "Adult fans and cynics at Disney Springs"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "disney_springs",
+    "difficulty": "hard",
+    "n": 7,
+    "audience": "Child cynics at Disney Springs"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "disney_springs",
+    "difficulty": "hard",
+    "n": 6,
+    "audience": "Child fans at Disney Springs"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "disney_springs",
+    "difficulty": "hard",
+    "n": 13,
+    "audience": "Child fans and cynics at Disney Springs"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "typhoon_lagoon",
+    "difficulty": "hard",
+    "n": 16,
+    "audience": "Adult cynics at Typhoon Lagoon"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "typhoon_lagoon",
+    "difficulty": "hard",
+    "n": 5,
+    "audience": "Adult fans at Typhoon Lagoon"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "typhoon_lagoon",
+    "difficulty": "hard",
+    "n": 21,
+    "audience": "Adult fans and cynics at Typhoon Lagoon"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "typhoon_lagoon",
+    "difficulty": "hard",
+    "n": 7,
+    "audience": "Child cynics at Typhoon Lagoon"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "typhoon_lagoon",
+    "difficulty": "hard",
+    "n": 5,
+    "audience": "Child fans at Typhoon Lagoon"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "typhoon_lagoon",
+    "difficulty": "hard",
+    "n": 12,
+    "audience": "Child fans and cynics at Typhoon Lagoon"
+  },
+  {
+    "mode": "cynic",
+    "age": "adult",
+    "park": "blizzard_beach",
+    "difficulty": "hard",
+    "n": 16,
+    "audience": "Adult cynics at Blizzard Beach"
+  },
+  {
+    "mode": "fan",
+    "age": "adult",
+    "park": "blizzard_beach",
+    "difficulty": "hard",
+    "n": 5,
+    "audience": "Adult fans at Blizzard Beach"
+  },
+  {
+    "mode": "mixed",
+    "age": "adult",
+    "park": "blizzard_beach",
+    "difficulty": "hard",
+    "n": 21,
+    "audience": "Adult fans and cynics at Blizzard Beach"
+  },
+  {
+    "mode": "cynic",
+    "age": "child",
+    "park": "blizzard_beach",
+    "difficulty": "hard",
+    "n": 7,
+    "audience": "Child cynics at Blizzard Beach"
+  },
+  {
+    "mode": "fan",
+    "age": "child",
+    "park": "blizzard_beach",
+    "difficulty": "hard",
+    "n": 5,
+    "audience": "Child fans at Blizzard Beach"
+  },
+  {
+    "mode": "mixed",
+    "age": "child",
+    "park": "blizzard_beach",
+    "difficulty": "hard",
+    "n": 12,
+    "audience": "Child fans and cynics at Blizzard Beach"
+  }
+]

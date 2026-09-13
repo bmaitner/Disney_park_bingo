@@ -27,7 +27,7 @@ sq0025,Stroller traffic jam,cynic,child,any,people,0.80,0
 sq0026,Walking while staring at phone,cynic,child,any,people,0.85,0
 sq0027,Adult having a tantrum,cynic,child,any,people,0.30,0
 sq0028,Dropped ice cream on the ground,cynic,child,any,food,0.30,0
-sq0029,Posted wait over 90 minutes,cynic,child,any,rides,0.65,0
+sq0029,Posted wait over 90 min,cynic,child,any,rides,0.65,0
 sq0030,Ride temporarily closed,cynic,child,any,rides,0.55,0
 sq0031,Arguing with a cast member,cynic,adult,any,people,0.30,0
 sq0032,Phone held up for an entire show,cynic,child,any,shows,0.65,0
@@ -116,9 +116,9 @@ sq0114,Jumping for a castle photo,fan,child,magic_kingdom,park_details,0.30,0
 sq0115,Main Street vehicle,fan,child,magic_kingdom,park_details,0.35,0
 sq0116,Railroad whistle,fan,child,magic_kingdom,park_details,0.60,0
 sq0117,Humming It's a Small World,fan,child,magic_kingdom,rides,0.35,0
-sq0118,Haunted Mansion wait over 45 minutes,cynic,child,magic_kingdom,rides,0.55,0
+sq0118,Haunted Mansion wait over 45 min,cynic,child,magic_kingdom,rides,0.55,0
 sq0119,Soaked from Tiana's Bayou Adventure,any,child,magic_kingdom,rides,0.45,0
-sq0120,Seven Dwarfs Mine Train wait over 60 minutes,cynic,child,magic_kingdom,rides,0.60,0
+sq0120,Mine Train wait over 60 min,cynic,child,magic_kingdom,rides,0.60,0
 sq0121,Kid crashing at the Speedway,any,child,magic_kingdom,rides,0.35,0
 sq0122,Dole Whip,fan,child,magic_kingdom,food,0.55,0
 sq0123,Parade,fan,child,magic_kingdom,shows,0.55,0
@@ -128,7 +128,7 @@ sq0126,Figment merch,fan,child,epcot,merch,0.55,0
 sq0127,Drinking Around the World group,any,adult,epcot,food,0.50,0
 sq0128,Visibly tipsy in World Showcase,cynic,adult,epcot,people,0.45,0
 sq0129,Festival passport in hand,fan,child,epcot,food,0.55,0
-sq0130,Frozen Ever After wait over 60 minutes,cynic,child,epcot,rides,0.55,0
+sq0130,Frozen Ever After wait over 60 min,cynic,child,epcot,rides,0.55,0
 sq0131,Kids collecting pavilion stamps,fan,child,epcot,park_details,0.30,0
 sq0132,Frozen margarita in Mexico,fan,adult,epcot,food,0.40,0
 sq0133,Someone tasting Beverly at Club Cool,fan,child,epcot,food,0.35,0
@@ -137,7 +137,7 @@ sq0135,Blue or green milk,fan,child,hollywood_studios,food,0.55,0
 sq0136,Stormtrooper patrol,fan,child,hollywood_studios,characters,0.45,0
 sq0137,Custom lightsaber box,fan,child,hollywood_studios,merch,0.30,0
 sq0138,Scream from Tower of Terror,any,child,hollywood_studios,rides,0.60,0
-sq0139,Slinky Dog Dash wait over 75 minutes,cynic,child,hollywood_studios,rides,0.60,0
+sq0139,Slinky Dog Dash wait over 75 min,cynic,child,hollywood_studios,rides,0.60,0
 sq0140,Kid in a Jedi robe,fan,child,hollywood_studios,outfits,0.25,0
 sq0141,Droid rolling along,fan,child,hollywood_studios,merch,0.20,0
 sq0142,Ronto Wrap,fan,child,hollywood_studios,food,0.35,0
@@ -146,7 +146,7 @@ sq0144,Animal sleeping so still it looks fake,cynic,child,animal_kingdom,park_de
 sq0145,"""Is that animal real?""",cynic,child,animal_kingdom,people,0.25,0
 sq0146,Screaming on Expedition Everest,any,child,animal_kingdom,rides,0.40,0
 sq0147,Banshee on a shoulder,fan,child,animal_kingdom,merch,0.35,0
-sq0148,Flight of Passage wait over 90 minutes,cynic,child,animal_kingdom,rides,0.60,0
+sq0148,Flight of Passage wait over 90 min,cynic,child,animal_kingdom,rides,0.60,0
 sq0149,Giraffe close to the safari truck,fan,child,animal_kingdom,park_details,0.60,0
 sq0150,Soaked from Kali River Rapids,any,child,animal_kingdom,rides,0.55,0
 sq0151,Head-to-toe safari outfit,fan,child,animal_kingdom,outfits,0.40,0

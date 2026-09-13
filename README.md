@@ -46,6 +46,39 @@ save_bingo_cards(cards, "epcot_bingo.pdf", title_family = "Segoe Script")
 | `balance` | `TRUE` (default) draws evenly from the easy, medium, and hard thirds of the eligible squares, so cards made together are about equally hard. |
 | `size`, `free_space` | Grid size (default 5) and whether the center is a free space. |
 
+## Phone app
+
+`app/` holds a small web app for playing on a phone instead of paper. Tap squares
+to cross them off; bingos are detected and highlighted. Progress is saved on the
+phone, and after the first visit the app works without a signal.
+
+**Try it locally**
+
+```bash
+python -m http.server 8765 --directory app
+```
+
+Then open <http://localhost:8765>. Open <http://localhost:8765/tests.html> to run
+the app's tests, which also check that its card logic agrees with the R package.
+
+**Install it on a phone.** The app has to be served over HTTPS, e.g. with GitHub
+Pages publishing the `app/` folder. Open the URL on the phone, then:
+
+- iPhone (Safari): Share, then *Add to Home Screen*
+- Android (Chrome): menu, then *Add to Home screen* or *Install app*
+
+**After editing the squares CSV**, refresh the app's copy and test expectations:
+
+```bash
+Rscript tools/update_app.R
+```
+
+The R tests fail if `app/squares.json` is out of date. When you change the list of
+app files, also bump `CACHE` in `app/sw.js` so installed copies pick up the change.
+
+The app keeps finished cards (which squares were crossed off) on the phone for
+future feedback collection with `update_difficulty()`.
+
 ## The squares table
 
 The table is a plain CSV so it's easy to edit by hand and review in diffs. You can

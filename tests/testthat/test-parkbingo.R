@@ -138,3 +138,25 @@ test_that("card audience describes the settings", {
                                              seed = 1)),
                "Adult fans and cynics at Magic Kingdom")
 })
+
+test_that("squares export to JSON for the app", {
+  json <- tempfile(fileext = ".json")
+  export_squares_json(json)
+  out <- jsonlite::read_json(json, simplifyVector = TRUE)
+  squares <- bingo_squares()
+  expect_equal(out$squares$id, squares$id)
+  expect_equal(out$squares$p_crossed, squares$p_crossed)
+  expect_type(out$squares$park, "list")
+  expect_equal(out$squares$park[[match("sq0109", squares$id)]],
+               c("magic_kingdom", "epcot"))
+  expect_equal(out$parks$code, square_vocab()$parks)
+})
+
+test_that("app/squares.json is in sync with the squares CSV", {
+  app_json <- test_path("..", "..", "app", "squares.json")
+  skip_if_not(file.exists(app_json), "app/ not available (e.g. in R CMD check)")
+  fresh <- tempfile(fileext = ".json")
+  export_squares_json(fresh)
+  expect_identical(readLines(app_json), readLines(fresh),
+                   info = "Run `Rscript tools/update_app.R` to refresh the app.")
+})

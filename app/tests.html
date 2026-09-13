@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Park bingo app tests</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 16px; }
+    .pass { color: #1b7f3b; }
+    .fail { color: #B3261E; font-weight: 600; }
+    li { margin: 2px 0; }
+  </style>
+</head>
+<body>
+  <h1>App tests</h1>
+  <p id="summary">Running...</p>
+  <ul id="results"></ul>
+
+  <script type="module">
+    import {
+      filterSquares, makeCard, makeRng, completedLines, winningLines, cardAudience,
+    } from "./bingo.js";
+
+    const results = [];
+    const check = (name, ok, detail = "") => results.push({ name, ok: Boolean(ok), detail });
+
+    const data = await (await fetch("squares.json")).json();
+    const expected = await (await fetch("tests/expected.json")).json();
+    const { squares, parks } = data;
+
+    // Filtering and subtitles match the R package for every combination.
+    const poolMismatches = expected.filter(
+      (e) => filterSquares(squares, e).length !== e.n
+    );
+    check(`pool sizes match R for ${expected.length} setting combinations`,
+          poolMismatches.length === 0,
+          poolMismatches.slice(0, 3).map((e) => JSON.stringify(e)).join("; "));
+
+    const audienceMismatches = expected.filter((e) => cardAudience(e, parks) !== e.audience);
+    check("card subtitles match R's card_audience()", audienceMismatches.length === 0,
+          audienceMismatches.slice(0, 3).map((e) => `${cardAudience(e, parks)} != ${e.audience}`).join("; "));
+
+    // Every mode/age/park can fill a card.
+    const thin = expected.filter((e) => e.difficulty === "any" && e.n < 24);
+    check("every mode/age/park has at least 24 squares", thin.length === 0,
+          thin.map((e) => `${e.mode}/${e.age}/${e.park}`).join(", "));
+
+    // Card shape.
+    const settings = { mode: "cynic", age: "adult", park: "animal_kingdom" };
+    const card = makeCard(squares, settings, makeRng(1));
+    const ids = card.grid.filter((id) => id !== null);
+    check("card has 25 cells with a free center", card.grid.length === 25 && card.grid[12] === null);
+    check("card has 24 distinct squares", ids.length === 24 && new Set(ids).size === 24);
+    check("labels line up with ids",
+          card.grid.every((id, i) => id === null ? card.labels[i] === null
+            : squares.find((s) => s.id === id).text === card.labels[i]));
+    check("only the free space starts crossed",
+          card.crossed.filter(Boolean).length === 1 && card.crossed[12]);
+    const pool = new Set(filterSquares(squares, settings).map((s) => s.id));
+    check("all squares come from the filtered pool", ids.every((id) => pool.has(id)));
+
+    // Seeded cards are reproducible and different seeds differ.
+    const again = makeCard(squares, settings, makeRng(1));
+    const other = makeCard(squares, settings, makeRng(2));
+    check("same seed gives the same card", JSON.stringify(again.grid) === JSON.stringify(card.grid));
+    check("different seeds give different cards", JSON.stringify(other.grid) !== JSON.stringify(card.grid));
+
+    // No free space on even sizes.
+    const four = makeCard(squares, { ...settings, size: 4 }, makeRng(3));
+    check("4x4 card has no free space", four.grid.length === 16 && !four.grid.includes(null));
+
+    // Balanced sampling spreads difficulty.
+    const mixedPool = filterSquares(squares, { mode: "mixed", age: "adult", park: "any" })
+      .map((s) => s.p_crossed).sort((a, b) => a - b);
+    const q1 = mixedPool[Math.floor(mixedPool.length / 3)];
+    const q2 = mixedPool[Math.floor((2 * mixedPool.length) / 3)];
+    let spreadOk = true;
+    for (let seed = 1; seed <= 20; seed++) {
+      const c = makeCard(squares, { mode: "mixed", age: "adult", park: "any" }, makeRng(seed));
+      const ps = c.grid.filter((id) => id).map((id) => squares.find((s) => s.id === id).p_crossed);
+      if (ps.filter((p) => p <= q1).length < 6 || ps.filter((p) => p >= q2).length < 6) spreadOk = false;
+    }
+    check("balanced cards include easy and hard squares", spreadOk);
+
+    // Too few squares throws a helpful error.
+    let threw = "";
+    try { makeCard(squares, { ...settings, difficulty: "hard", age: "child", size: 7 }, makeRng(1)); }
+    catch (err) { threw = err.message; }
+    check("impossible settings throw", threw.startsWith("Only"), threw);
+
+    // Bingo detection.
+    check("5x5 has 12 winning lines", winningLines(5).length === 12);
+    const crossed = Array(25).fill(false);
+    check("empty card has no bingo", completedLines(crossed, 5).length === 0);
+    [0, 6, 12, 18, 24].forEach((i) => { crossed[i] = true; });
+    check("diagonal counts as a bingo", completedLines(crossed, 5).length === 1);
+    [2, 7, 17, 22].forEach((i) => { crossed[i] = true; });
+    check("two lines count as two bingos", completedLines(crossed, 5).length === 2);
+
+    // Report.
+    const failed = results.filter((r) => !r.ok);
+    document.getElementById("summary").textContent =
+      `${results.length - failed.length} passed, ${failed.length} failed`;
+    document.getElementById("summary").className = failed.length ? "fail" : "pass";
+    document.getElementById("results").replaceChildren(...results.map((r) => {
+      const li = document.createElement("li");
+      li.className = r.ok ? "pass" : "fail";
+      li.textContent = `${r.ok ? "PASS" : "FAIL"}: ${r.name}${r.detail ? ` (${r.detail})` : ""}`;
+      return li;
+    }));
+    window.testResults = { passed: results.length - failed.length, failed };
+  </script>
+</body>
+</html>

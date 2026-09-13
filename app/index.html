@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Theme park bingo</title>
+  <meta name="description" content="People-watching bingo for a day at the parks.">
+  <meta name="theme-color" content="#FFFBF3">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Park Bingo">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="masthead">
+      <h1 class="title">Theme park bingo</h1>
+      <p class="subtitle" id="subtitle">&nbsp;</p>
+    </header>
+
+    <section id="setup-view" class="view" hidden>
+      <form id="setup-form" class="setup">
+        <fieldset class="field">
+          <legend>Who's playing</legend>
+          <div class="segmented">
+            <label><input type="radio" name="age" value="adult" checked><span>Adult</span></label>
+            <label><input type="radio" name="age" value="child"><span>Child</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>Mode</legend>
+          <div class="segmented">
+            <label><input type="radio" name="mode" value="fan" checked><span>Fan</span></label>
+            <label><input type="radio" name="mode" value="cynic"><span>Cynic</span></label>
+            <label><input type="radio" name="mode" value="mixed"><span>Both</span></label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label class="legend" for="park">Park</label>
+          <select id="park" name="park"></select>
+        </div>
+
+        <p class="error" id="setup-error" role="alert" hidden></p>
+        <button type="submit" class="primary" id="deal">Deal a card</button>
+        <p class="hint" id="pool-hint"></p>
+        <button type="button" class="link" id="back-to-card" hidden>Back to my card</button>
+      </form>
+    </section>
+
+    <section id="card-view" class="view" hidden>
+      <div class="banner off" id="banner" role="status" aria-live="polite">Bingo!</div>
+      <div class="board" id="board" role="group" aria-label="Bingo card"></div>
+      <div class="card-footer">
+        <span id="progress"></span>
+        <span class="card-id" id="card-id"></span>
+      </div>
+      <button type="button" class="secondary" id="new-card">New card</button>
+    </section>
+
+    <p class="loading" id="loading">Loading squares...</p>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

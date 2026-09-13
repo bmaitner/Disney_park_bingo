@@ -21,6 +21,7 @@ Depends:
 Imports:
     grDevices,
     grid,
+    jsonlite,
     stats,
     utils
 Suggests:

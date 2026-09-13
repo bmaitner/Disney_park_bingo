@@ -1,0 +1,1671 @@
+{
+  "format_version": 1,
+  "modes": ["cynic", "fan", "any"],
+  "ages": ["child", "adult"],
+  "parks": [
+    {
+      "code": "any",
+      "label": "Any park"
+    },
+    {
+      "code": "magic_kingdom",
+      "label": "Magic Kingdom"
+    },
+    {
+      "code": "epcot",
+      "label": "EPCOT"
+    },
+    {
+      "code": "hollywood_studios",
+      "label": "Hollywood Studios"
+    },
+    {
+      "code": "animal_kingdom",
+      "label": "Animal Kingdom"
+    },
+    {
+      "code": "disney_springs",
+      "label": "Disney Springs"
+    },
+    {
+      "code": "typhoon_lagoon",
+      "label": "Typhoon Lagoon"
+    },
+    {
+      "code": "blizzard_beach",
+      "label": "Blizzard Beach"
+    }
+  ],
+  "squares": [
+    {
+      "id": "sq0001",
+      "text": "Someone napping",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.8,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0002",
+      "text": "All Disney head to toe",
+      "mode": "any",
+      "age": "child",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.85,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0003",
+      "text": "Outfit that doesn't fit",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0004",
+      "text": "Vapid influencer",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0005",
+      "text": "High heels",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.45,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0006",
+      "text": "Plastic surgery nightmare",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.25,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0007",
+      "text": "Boy mom",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.5,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0008",
+      "text": "Eating food bigger than head",
+      "mode": "any",
+      "age": "child",
+      "park": ["any"],
+      "category": "food",
+      "p_crossed": 0.7,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0009",
+      "text": "Dad/Daddy unclear couple",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.2,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0010",
+      "text": "Umbrella as parasol",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "weather",
+      "p_crossed": 0.65,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0011",
+      "text": "Red hat",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.4,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0012",
+      "text": "Excessive PDA",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0013",
+      "text": "Furry tail",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.2,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0014",
+      "text": "2 kids crying in same party",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0015",
+      "text": "Face tattoo",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0016",
+      "text": "Bathing suit / bra as top",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.4,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0017",
+      "text": "Family matching shirts",
+      "mode": "any",
+      "age": "child",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.9,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0018",
+      "text": "Offensive shirt",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0019",
+      "text": "Portuguese speakers",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.75,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0020",
+      "text": "Sunburnt individual",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "weather",
+      "p_crossed": 0.7,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0021",
+      "text": "Someone telling kid to smile",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0022",
+      "text": "Columbia PFG",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0023",
+      "text": "Proselytizing T-shirt",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.2,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0024",
+      "text": "Couple fighting",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.5,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0025",
+      "text": "Stroller traffic jam",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.8,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0026",
+      "text": "Walking while staring at phone",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.85,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0027",
+      "text": "Adult having a tantrum",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.3,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0028",
+      "text": "Dropped ice cream on the ground",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "food",
+      "p_crossed": 0.3,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0029",
+      "text": "Posted wait over 90 min",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "rides",
+      "p_crossed": 0.65,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0030",
+      "text": "Ride temporarily closed",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "rides",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0031",
+      "text": "Arguing with a cast member",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.3,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0032",
+      "text": "Phone held up for an entire show",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "shows",
+      "p_crossed": 0.65,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0033",
+      "text": "Selfie stick",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.45,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0034",
+      "text": "Someone cutting in line",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "rides",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0035",
+      "text": "Kid on a backpack leash",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0036",
+      "text": "Scooter bumps someone's ankles",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.4,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0037",
+      "text": "Complaining about prices",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0038",
+      "text": "Parent yelling kid's full name",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.5,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0039",
+      "text": "Stroller loaded like a pack mule",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0040",
+      "text": "Asleep during a show",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "shows",
+      "p_crossed": 0.45,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0041",
+      "text": "Sweat-soaked shirt",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "weather",
+      "p_crossed": 0.75,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0042",
+      "text": "Crocs with charms",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.7,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0043",
+      "text": "Fanny pack worn crossbody",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.8,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0044",
+      "text": "Running to a ride",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "rides",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0045",
+      "text": "Phone charging cord dangling",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0046",
+      "text": "Tour group following a flag",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0047",
+      "text": "Portable speaker blasting music",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.2,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0048",
+      "text": "Jeans in 95 degree heat",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0049",
+      "text": "Wearing another theme park's shirt",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.3,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0050",
+      "text": "Someone holding all the bags",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.7,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0051",
+      "text": "Visibly tipsy adult",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.4,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0052",
+      "text": "Vaping where you shouldn't",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.3,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0053",
+      "text": "Parent on phone ignoring kid",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0054",
+      "text": "Bachelorette party",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.25,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0055",
+      "text": "Adult crying (not happy tears)",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.25,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0056",
+      "text": "Drinking pun T-shirt",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.45,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0057",
+      "text": "\"It was better in the '90s\"",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.25,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0058",
+      "text": "Clearly hungover",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.3,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0059",
+      "text": "Kid bribed with a toy",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.5,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0060",
+      "text": "\"We paid a lot of money for this\"",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0061",
+      "text": "Someone yelling at their family",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.45,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0062",
+      "text": "Adult in a full costume",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.15,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0063",
+      "text": "Kid asleep in stroller",
+      "mode": "any",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.85,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0064",
+      "text": "Parent carrying a sleeping kid",
+      "mode": "any",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.65,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0065",
+      "text": "Rain poncho",
+      "mode": "any",
+      "age": "child",
+      "park": ["any"],
+      "category": "weather",
+      "p_crossed": 0.5,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0066",
+      "text": "Afternoon thunderstorm",
+      "mode": "any",
+      "age": "child",
+      "park": ["any"],
+      "category": "weather",
+      "p_crossed": 0.45,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0067",
+      "text": "Turkey leg on the go",
+      "mode": "any",
+      "age": "child",
+      "park": ["any"],
+      "category": "food",
+      "p_crossed": 0.5,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0068",
+      "text": "Light-up spinner toy",
+      "mode": "any",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0069",
+      "text": "Cooling off at a misting fan",
+      "mode": "any",
+      "age": "child",
+      "park": ["any"],
+      "category": "weather",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0070",
+      "text": "Hidden Mickey",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "park_details",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0071",
+      "text": "Mickey pretzel",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "food",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0072",
+      "text": "Mickey ice cream bar",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "food",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0073",
+      "text": "Spirit Jersey",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.85,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0074",
+      "text": "Loaded Minnie ears",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0075",
+      "text": "Birthday button",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.85,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0076",
+      "text": "First Visit button",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.75,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0077",
+      "text": "Anniversary or Just Married button",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0078",
+      "text": "Character meet and greet line",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "characters",
+      "p_crossed": 0.75,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0079",
+      "text": "Character hug",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "characters",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0080",
+      "text": "Kid in a princess dress",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.9,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0081",
+      "text": "Kid in a superhero costume",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0082",
+      "text": "Pin trading with a cast member",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0083",
+      "text": "\"Have a magical day\"",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.7,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0084",
+      "text": "Happy tears",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0085",
+      "text": "Mickey balloon",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.75,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0086",
+      "text": "Souvenir popcorn bucket",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0087",
+      "text": "Churro",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "food",
+      "p_crossed": 0.7,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0088",
+      "text": "PhotoPass photographer",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "park_details",
+      "p_crossed": 0.8,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0089",
+      "text": "Group in matching ears",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0090",
+      "text": "Singing along to a ride song",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "rides",
+      "p_crossed": 0.45,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0091",
+      "text": "Kid starstruck by a character",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "characters",
+      "p_crossed": 0.3,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0092",
+      "text": "Lanyard full of pins",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0093",
+      "text": "Grandparents in ears",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0094",
+      "text": "Marriage proposal",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.03,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0095",
+      "text": "Someone in a wedding dress",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.1,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0096",
+      "text": "Loungefly backpack",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.7,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0097",
+      "text": "Cast member sticker on a kid",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.45,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0098",
+      "text": "Autograph book",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "characters",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0099",
+      "text": "Custom trip shirt with the year",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0100",
+      "text": "DisneyBounding",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "outfits",
+      "p_crossed": 0.45,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0101",
+      "text": "Waving at a passing boat or train",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "park_details",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0102",
+      "text": "Kids chasing bubbles",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.45,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0103",
+      "text": "Sorcerer Mickey hat",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.15,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0104",
+      "text": "Drink with a glow cube",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "food",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0105",
+      "text": "Haunted Mansion wallpaper print",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.4,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0106",
+      "text": "Quoting a ride spiel",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "rides",
+      "p_crossed": 0.2,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0107",
+      "text": "Couple in Mr & Mrs ears",
+      "mode": "fan",
+      "age": "child",
+      "park": ["any"],
+      "category": "merch",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0108",
+      "text": "Adults in ears with no kids",
+      "mode": "fan",
+      "age": "adult",
+      "park": ["any"],
+      "category": "people",
+      "p_crossed": 0.7,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0109",
+      "text": "Fireworks",
+      "mode": "fan",
+      "age": "child",
+      "park": ["magic_kingdom", "epcot"],
+      "category": "shows",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0110",
+      "text": "Monorail overhead",
+      "mode": "fan",
+      "age": "child",
+      "park": ["magic_kingdom", "epcot"],
+      "category": "park_details",
+      "p_crossed": 0.7,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0111",
+      "text": "Skyliner gondola",
+      "mode": "fan",
+      "age": "child",
+      "park": ["epcot", "hollywood_studios"],
+      "category": "park_details",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0112",
+      "text": "Crowd camped for fireworks 1 hr early",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["magic_kingdom", "epcot"],
+      "category": "shows",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0113",
+      "text": "Castle photo pose",
+      "mode": "fan",
+      "age": "child",
+      "park": ["magic_kingdom"],
+      "category": "park_details",
+      "p_crossed": 0.95,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0114",
+      "text": "Jumping for a castle photo",
+      "mode": "fan",
+      "age": "child",
+      "park": ["magic_kingdom"],
+      "category": "park_details",
+      "p_crossed": 0.3,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0115",
+      "text": "Main Street vehicle",
+      "mode": "fan",
+      "age": "child",
+      "park": ["magic_kingdom"],
+      "category": "park_details",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0116",
+      "text": "Railroad whistle",
+      "mode": "fan",
+      "age": "child",
+      "park": ["magic_kingdom"],
+      "category": "park_details",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0117",
+      "text": "Humming It's a Small World",
+      "mode": "fan",
+      "age": "child",
+      "park": ["magic_kingdom"],
+      "category": "rides",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0118",
+      "text": "Haunted Mansion wait over 45 min",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["magic_kingdom"],
+      "category": "rides",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0119",
+      "text": "Soaked from Tiana's Bayou Adventure",
+      "mode": "any",
+      "age": "child",
+      "park": ["magic_kingdom"],
+      "category": "rides",
+      "p_crossed": 0.45,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0120",
+      "text": "Mine Train wait over 60 min",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["magic_kingdom"],
+      "category": "rides",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0121",
+      "text": "Kid crashing at the Speedway",
+      "mode": "any",
+      "age": "child",
+      "park": ["magic_kingdom"],
+      "category": "rides",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0122",
+      "text": "Dole Whip",
+      "mode": "fan",
+      "age": "child",
+      "park": ["magic_kingdom"],
+      "category": "food",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0123",
+      "text": "Parade",
+      "mode": "fan",
+      "age": "child",
+      "park": ["magic_kingdom"],
+      "category": "shows",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0124",
+      "text": "Trying to pull the Sword in the Stone",
+      "mode": "fan",
+      "age": "child",
+      "park": ["magic_kingdom"],
+      "category": "park_details",
+      "p_crossed": 0.4,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0125",
+      "text": "Spaceship Earth photo",
+      "mode": "fan",
+      "age": "child",
+      "park": ["epcot"],
+      "category": "park_details",
+      "p_crossed": 0.9,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0126",
+      "text": "Figment merch",
+      "mode": "fan",
+      "age": "child",
+      "park": ["epcot"],
+      "category": "merch",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0127",
+      "text": "Drinking Around the World group",
+      "mode": "any",
+      "age": "adult",
+      "park": ["epcot"],
+      "category": "food",
+      "p_crossed": 0.5,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0128",
+      "text": "Visibly tipsy in World Showcase",
+      "mode": "cynic",
+      "age": "adult",
+      "park": ["epcot"],
+      "category": "people",
+      "p_crossed": 0.45,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0129",
+      "text": "Festival passport in hand",
+      "mode": "fan",
+      "age": "child",
+      "park": ["epcot"],
+      "category": "food",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0130",
+      "text": "Frozen Ever After wait over 60 min",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["epcot"],
+      "category": "rides",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0131",
+      "text": "Kids collecting pavilion stamps",
+      "mode": "fan",
+      "age": "child",
+      "park": ["epcot"],
+      "category": "park_details",
+      "p_crossed": 0.3,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0132",
+      "text": "Frozen margarita in Mexico",
+      "mode": "fan",
+      "age": "adult",
+      "park": ["epcot"],
+      "category": "food",
+      "p_crossed": 0.4,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0133",
+      "text": "Someone tasting Beverly at Club Cool",
+      "mode": "fan",
+      "age": "child",
+      "park": ["epcot"],
+      "category": "food",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0134",
+      "text": "Remy ears",
+      "mode": "fan",
+      "age": "child",
+      "park": ["epcot"],
+      "category": "merch",
+      "p_crossed": 0.2,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0135",
+      "text": "Blue or green milk",
+      "mode": "fan",
+      "age": "child",
+      "park": ["hollywood_studios"],
+      "category": "food",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0136",
+      "text": "Stormtrooper patrol",
+      "mode": "fan",
+      "age": "child",
+      "park": ["hollywood_studios"],
+      "category": "characters",
+      "p_crossed": 0.45,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0137",
+      "text": "Custom lightsaber box",
+      "mode": "fan",
+      "age": "child",
+      "park": ["hollywood_studios"],
+      "category": "merch",
+      "p_crossed": 0.3,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0138",
+      "text": "Scream from Tower of Terror",
+      "mode": "any",
+      "age": "child",
+      "park": ["hollywood_studios"],
+      "category": "rides",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0139",
+      "text": "Slinky Dog Dash wait over 75 min",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["hollywood_studios"],
+      "category": "rides",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0140",
+      "text": "Kid in a Jedi robe",
+      "mode": "fan",
+      "age": "child",
+      "park": ["hollywood_studios"],
+      "category": "outfits",
+      "p_crossed": 0.25,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0141",
+      "text": "Droid rolling along",
+      "mode": "fan",
+      "age": "child",
+      "park": ["hollywood_studios"],
+      "category": "merch",
+      "p_crossed": 0.2,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0142",
+      "text": "Ronto Wrap",
+      "mode": "fan",
+      "age": "child",
+      "park": ["hollywood_studios"],
+      "category": "food",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0143",
+      "text": "Tree of Life photo",
+      "mode": "fan",
+      "age": "child",
+      "park": ["animal_kingdom"],
+      "category": "park_details",
+      "p_crossed": 0.85,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0144",
+      "text": "Animal sleeping so still it looks fake",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["animal_kingdom"],
+      "category": "park_details",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0145",
+      "text": "\"Is that animal real?\"",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["animal_kingdom"],
+      "category": "people",
+      "p_crossed": 0.25,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0146",
+      "text": "Screaming on Expedition Everest",
+      "mode": "any",
+      "age": "child",
+      "park": ["animal_kingdom"],
+      "category": "rides",
+      "p_crossed": 0.4,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0147",
+      "text": "Banshee on a shoulder",
+      "mode": "fan",
+      "age": "child",
+      "park": ["animal_kingdom"],
+      "category": "merch",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0148",
+      "text": "Flight of Passage wait over 90 min",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["animal_kingdom"],
+      "category": "rides",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0149",
+      "text": "Giraffe close to the safari truck",
+      "mode": "fan",
+      "age": "child",
+      "park": ["animal_kingdom"],
+      "category": "park_details",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0150",
+      "text": "Soaked from Kali River Rapids",
+      "mode": "any",
+      "age": "child",
+      "park": ["animal_kingdom"],
+      "category": "rides",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0151",
+      "text": "Head-to-toe safari outfit",
+      "mode": "fan",
+      "age": "child",
+      "park": ["animal_kingdom"],
+      "category": "outfits",
+      "p_crossed": 0.4,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0152",
+      "text": "World of Disney shopping bag",
+      "mode": "fan",
+      "age": "child",
+      "park": ["disney_springs"],
+      "category": "merch",
+      "p_crossed": 0.8,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0153",
+      "text": "Aerophile balloon aloft",
+      "mode": "fan",
+      "age": "child",
+      "park": ["disney_springs"],
+      "category": "park_details",
+      "p_crossed": 0.4,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0154",
+      "text": "Forgot where they parked",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["disney_springs"],
+      "category": "people",
+      "p_crossed": 0.2,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0155",
+      "text": "Gigantic cupcake",
+      "mode": "fan",
+      "age": "child",
+      "park": ["disney_springs"],
+      "category": "food",
+      "p_crossed": 0.4,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0156",
+      "text": "Amphicar in the water",
+      "mode": "fan",
+      "age": "child",
+      "park": ["disney_springs"],
+      "category": "park_details",
+      "p_crossed": 0.3,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0157",
+      "text": "Crowd around a street performer",
+      "mode": "fan",
+      "age": "child",
+      "park": ["disney_springs"],
+      "category": "shows",
+      "p_crossed": 0.55,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0158",
+      "text": "Hesitating at the top of a slide",
+      "mode": "any",
+      "age": "child",
+      "park": ["typhoon_lagoon", "blizzard_beach"],
+      "category": "rides",
+      "p_crossed": 0.5,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0159",
+      "text": "Lost flip-flop",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["typhoon_lagoon", "blizzard_beach"],
+      "category": "outfits",
+      "p_crossed": 0.25,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0160",
+      "text": "Wedgie after a slide",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["typhoon_lagoon", "blizzard_beach"],
+      "category": "outfits",
+      "p_crossed": 0.45,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0161",
+      "text": "Streaky white sunscreen face",
+      "mode": "cynic",
+      "age": "child",
+      "park": ["typhoon_lagoon", "blizzard_beach"],
+      "category": "weather",
+      "p_crossed": 0.35,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0162",
+      "text": "Knocked over in the wave pool",
+      "mode": "any",
+      "age": "child",
+      "park": ["typhoon_lagoon"],
+      "category": "rides",
+      "p_crossed": 0.6,
+      "n_feedback": 0
+    },
+    {
+      "id": "sq0163",
+      "text": "Chairlift ride",
+      "mode": "fan",
+      "age": "child",
+      "park": ["blizzard_beach"],
+      "category": "rides",
+      "p_crossed": 0.5,
+      "n_feedback": 0
+    }
+  ]
+}
