@@ -1,7 +1,7 @@
 #' Filter squares for a card
 #'
-#' Selects the squares eligible for a card with the given mode, age, park, and
-#' difficulty.
+#' Selects the squares eligible for a card with the given mode, age, and park,
+#' optionally restricted to a range of `p_crossed`.
 #'
 #' @param squares A squares table, e.g. from [bingo_squares()].
 #' @param mode `"cynic"` or `"fan"` keep squares of that mode plus those tagged
@@ -10,9 +10,9 @@
 #'   squares.
 #' @param park A park name or code (see [park_code()]). `"any"` keeps only
 #'   squares that can happen anywhere; a specific park adds its own squares.
-#' @param difficulty `"any"` (no filter), `"easy"` (`p_crossed >= 0.6`),
-#'   `"medium"` (0.3-0.6), `"hard"` (`p_crossed < 0.3`), or a numeric
-#'   `c(min, max)` range of `p_crossed`.
+#' @param difficulty `"any"` (no filter) or a numeric `c(min, max)` range of
+#'   `p_crossed` to keep. Named difficulty levels don't filter; see
+#'   [make_bingo_card()].
 #' @return The filtered squares table.
 #' @export
 #' @examples
@@ -25,6 +25,11 @@ filter_squares <- function(squares = bingo_squares(),
   mode <- match.arg(mode)
   age <- match.arg(age)
   park <- park_code(park)
+  if (is.character(difficulty) && !identical(difficulty, "any")) {
+    stop("filter_squares() takes difficulty = \"any\" or c(min, max). ",
+         "Levels like \"hard\" shape the mix in make_bingo_card() instead.",
+         call. = FALSE)
+  }
   range <- difficulty_range(difficulty)
 
   keep_mode <- if (mode == "mixed") TRUE else squares$mode %in% c(mode, "any")
@@ -45,11 +50,19 @@ filter_squares <- function(squares = bingo_squares(),
 #' in the center.
 #'
 #' @inheritParams filter_squares
+#' @param difficulty How hard the card should be. Levels tilt the mix of
+#'   squares drawn from the easiest, middle, and hardest thirds (by
+#'   `p_crossed`) of the eligible squares, so every setting can make a card:
+#'   `"any"` draws evenly (8/8/8 on a 5x5 card), `"easy"` favors easy squares
+#'   (12/8/4), `"medium"` favors the middle (4/16/4), and `"hard"` favors hard
+#'   squares (4/8/12). A numeric `c(min, max)` instead keeps only squares with
+#'   `p_crossed` in that range.
 #' @param size Number of rows (and columns). Defaults to 5.
 #' @param free_space Put a free space in the center (odd sizes only)?
-#' @param balance If `TRUE`, draw evenly across easy/medium/hard thirds of the
-#'   eligible squares (by `p_crossed`) so that cards made together are
-#'   comparably hard.
+#' @param balance With `difficulty = "any"` or a numeric range, `TRUE` draws
+#'   evenly across the easiest, middle, and hardest thirds so that cards made
+#'   together are comparably hard; `FALSE` draws at random. Difficulty levels
+#'   always use their tilted mix.
 #' @param park_weight Relative chance of drawing a park-specific square versus
 #'   a square that can happen anywhere, when `park` is a specific park.
 #' @param seed Optional random seed for a reproducible card.
@@ -82,8 +95,11 @@ make_bingo_card <- function(squares = bingo_squares(),
   free_space <- isTRUE(free_space) && size %% 2 == 1
   if (!is.null(seed)) set.seed(seed)
 
+  level <- if (is.numeric(difficulty)) "any" else
+    match.arg(difficulty, c("any", "easy", "medium", "hard"))
+  range <- if (is.numeric(difficulty)) difficulty else "any"
   pool <- filter_squares(squares, mode = mode, age = age, park = park,
-                         difficulty = difficulty)
+                         difficulty = range)
   n_needed <- size^2 - free_space
   if (nrow(pool) < n_needed) {
     stop(sprintf(
@@ -94,8 +110,8 @@ make_bingo_card <- function(squares = bingo_squares(),
   }
 
   weights <- ifelse(park != "any" & pool$park != "any", park_weight, 1)
-  picked <- if (balance) {
-    sample_balanced(pool$p_crossed, n_needed, weights)
+  picked <- if (balance || level != "any") {
+    sample_balanced(pool$p_crossed, n_needed, weights, difficulty_mix(level))
   } else {
     sample_weighted(seq_len(nrow(pool)), n_needed, weights)
   }
@@ -212,21 +228,22 @@ card_audience <- function(card) {
 }
 
 difficulty_range <- function(difficulty) {
-  if (is.numeric(difficulty)) {
-    if (length(difficulty) != 2 || anyNA(difficulty) ||
-        difficulty[1] > difficulty[2]) {
-      stop("A numeric `difficulty` must be c(min, max) of p_crossed.",
-           call. = FALSE)
-    }
-    return(difficulty)
+  if (identical(difficulty, "any")) return(c(0, 1))
+  if (!is.numeric(difficulty) || length(difficulty) != 2 || anyNA(difficulty) ||
+      difficulty[1] > difficulty[2]) {
+    stop("A numeric `difficulty` must be c(min, max) of p_crossed.",
+         call. = FALSE)
   }
-  switch(
-    match.arg(difficulty, c("any", "easy", "medium", "hard")),
-    any = c(0, 1),
-    easy = c(0.6, 1),
-    medium = c(0.3, 0.6),
-    hard = c(0, 0.3)
-  )
+  difficulty
+}
+
+# Relative share of squares drawn from the hardest, middle, and easiest thirds.
+difficulty_mix <- function(level) {
+  switch(level,
+         any = c(1, 1, 1),
+         easy = c(1, 2, 3),
+         medium = c(1, 4, 1),
+         hard = c(3, 2, 1))
 }
 
 format_difficulty <- function(difficulty) {
@@ -237,16 +254,17 @@ format_difficulty <- function(difficulty) {
   }
 }
 
-# Draw n indices without replacement, spreading them evenly across thirds of
-# the pool ordered by p_crossed.
-sample_balanced <- function(p, n, weights, n_bins = 3) {
+# Draw n indices without replacement from thirds of the pool ordered by
+# p_crossed (hardest first), in proportion to mix.
+sample_balanced <- function(p, n, weights, mix = c(1, 1, 1)) {
   ord <- order(p, stats::runif(length(p)))
-  bins <- split(ord, cut(seq_along(ord), min(n_bins, length(ord)),
-                         labels = FALSE))
-  quotas <- rep(n %/% length(bins), length(bins))
-  extra <- n %% length(bins)
+  k <- min(length(mix), length(ord))
+  if (k < length(mix)) mix <- rep(1, k)
+  bins <- split(ord, cut(seq_along(ord), k, labels = FALSE))
+  quotas <- floor(n * mix / sum(mix))
+  extra <- n - sum(quotas)
   if (extra > 0) {
-    bump <- sample.int(length(bins), extra)
+    bump <- sample.int(k, extra)
     quotas[bump] <- quotas[bump] + 1
   }
   picked <- unlist(Map(function(idx, q) {

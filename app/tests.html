@@ -41,7 +41,7 @@
           audienceMismatches.slice(0, 3).map((e) => `${cardAudience(e, parks)} != ${e.audience}`).join("; "));
 
     // Every mode/age/park can fill a card.
-    const thin = expected.filter((e) => e.difficulty === "any" && e.n < 24);
+    const thin = expected.filter((e) => e.n < 24);
     check("every mode/age/park has at least 24 squares", thin.length === 0,
           thin.map((e) => `${e.mode}/${e.age}/${e.park}`).join(", "));
 
@@ -82,9 +82,32 @@
     }
     check("balanced cards include easy and hard squares", spreadOk);
 
+    // Difficulty tilts the mix, and every setting can deal every level.
+    const meanP = (difficulty) => {
+      let sum = 0;
+      for (let seed = 1; seed <= 30; seed++) {
+        const c = makeCard(squares, { mode: "fan", age: "child", park: "epcot", difficulty }, makeRng(seed));
+        const ps = c.grid.filter((id) => id).map((id) => squares.find((s) => s.id === id).p_crossed);
+        sum += ps.reduce((a, b) => a + b, 0) / ps.length;
+      }
+      return sum / 30;
+    };
+    const [pEasy, pAny, pHard] = ["easy", "any", "hard"].map(meanP);
+    check("easy cards are easier and hard cards harder than normal", pEasy > pAny && pAny > pHard,
+          `easy ${pEasy.toFixed(3)}, normal ${pAny.toFixed(3)}, hard ${pHard.toFixed(3)}`);
+    let levelFailures = [];
+    for (const e of expected) {
+      for (const difficulty of ["easy", "medium", "hard"]) {
+        try { makeCard(squares, { ...e, difficulty }, makeRng(1)); }
+        catch { levelFailures.push(`${e.mode}/${e.age}/${e.park}/${difficulty}`); }
+      }
+    }
+    check("every setting deals easy, medium, and hard cards", levelFailures.length === 0,
+          levelFailures.slice(0, 5).join(", "));
+
     // Too few squares throws a helpful error.
     let threw = "";
-    try { makeCard(squares, { ...settings, difficulty: "hard", age: "child", size: 7 }, makeRng(1)); }
+    try { makeCard(squares, { mode: "fan", age: "child", park: "any", size: 9 }, makeRng(1)); }
     catch (err) { threw = err.message; }
     check("impossible settings throw", threw.startsWith("Only"), threw);
 

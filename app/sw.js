@@ -1,7 +1,8 @@
 // Offline support: pre-cache the app, then serve from cache while refreshing
 // in the background so updates arrive on the next launch.
-// Bump CACHE when the list of files changes.
-const CACHE = "parkbingo-v1";
+// The publish workflow stamps CACHE with the commit so every deploy refreshes
+// installed copies; add new app files to FILES.
+const CACHE = "parkbingo-dev";
 const FILES = [
   "./",
   "index.html",

@@ -1,22 +1,20 @@
 // Card logic for the phone app. Mirrors filter_squares(), make_bingo_card()
 // and card_audience() in the R package; app/tests.html checks they agree.
 
-export const DIFFICULTY_RANGES = {
-  any: [0, 1],
-  easy: [0.6, 1],
-  medium: [0.3, 0.6],
-  hard: [0, 0.3],
+// Relative share of squares drawn from the hardest, middle, and easiest thirds.
+export const DIFFICULTY_MIX = {
+  any: [1, 1, 1],
+  easy: [1, 2, 3],
+  medium: [1, 4, 1],
+  hard: [3, 2, 1],
 };
 
-export function filterSquares(squares, { mode, age, park, difficulty = "any" }) {
-  const [lo, hi] = DIFFICULTY_RANGES[difficulty];
+export function filterSquares(squares, { mode, age, park }) {
   return squares.filter(
     (s) =>
       (mode === "mixed" || s.mode === mode || s.mode === "any") &&
       (age === "adult" || s.age === "child") &&
-      s.park.some((p) => p === "any" || p === park) &&
-      s.p_crossed >= lo &&
-      s.p_crossed <= hi
+      s.park.some((p) => p === "any" || p === park)
   );
 }
 
@@ -58,17 +56,21 @@ function sampleWeighted(items, n, weightOf, rng) {
   return picked;
 }
 
-// Draw n squares spread evenly across thirds of the pool by p_crossed.
-function sampleBalanced(pool, n, weightOf, rng, nBins = 3) {
+// Draw n squares from thirds of the pool ordered by p_crossed (hardest first),
+// in proportion to mix.
+function sampleBalanced(pool, n, weightOf, rng, mix = DIFFICULTY_MIX.any) {
   const ordered = shuffle(pool, rng).sort((a, b) => a.p_crossed - b.p_crossed);
-  const k = Math.min(nBins, ordered.length);
+  const k = Math.min(mix.length, ordered.length);
+  if (k < mix.length) mix = Array(k).fill(1);
   const bins = Array.from({ length: k }, (_, b) =>
     ordered.slice(Math.round((b * ordered.length) / k),
                   Math.round(((b + 1) * ordered.length) / k))
   );
-  const quotas = bins.map(() => Math.floor(n / k));
+  const total = mix.reduce((a, b) => a + b, 0);
+  const quotas = mix.map((m) => Math.floor((n * m) / total));
+  const extra = n - quotas.reduce((a, b) => a + b, 0);
   shuffle([...bins.keys()], rng)
-    .slice(0, n % k)
+    .slice(0, extra)
     .forEach((b) => quotas[b]++);
 
   let picked = bins.flatMap((bin, b) =>
@@ -89,7 +91,7 @@ export function makeCard(squares, settings, rng = makeRng()) {
     size = 5, freeSpace = true, balance = true, parkWeight = 2,
   } = settings;
   const hasFree = freeSpace && size % 2 === 1;
-  const pool = filterSquares(squares, { mode, age, park, difficulty });
+  const pool = filterSquares(squares, { mode, age, park });
   const needed = size * size - (hasFree ? 1 : 0);
   if (pool.length < needed) {
     throw new Error(
@@ -99,8 +101,8 @@ export function makeCard(squares, settings, rng = makeRng()) {
 
   const weightOf = (s) =>
     park !== "any" && !s.park.includes("any") ? parkWeight : 1;
-  const drawn = balance
-    ? sampleBalanced(pool, needed, weightOf, rng)
+  const drawn = balance || difficulty !== "any"
+    ? sampleBalanced(pool, needed, weightOf, rng, DIFFICULTY_MIX[difficulty])
     : sampleWeighted(pool, needed, weightOf, rng);
 
   const center = (size * size - 1) / 2;

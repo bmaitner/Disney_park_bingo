@@ -46,6 +46,15 @@
           <select id="park" name="park"></select>
         </div>
 
+        <fieldset class="field">
+          <legend>Difficulty</legend>
+          <div class="segmented">
+            <label><input type="radio" name="difficulty" value="easy"><span>Easy</span></label>
+            <label><input type="radio" name="difficulty" value="any" checked><span>Normal</span></label>
+            <label><input type="radio" name="difficulty" value="hard"><span>Hard</span></label>
+          </div>
+        </fieldset>
+
         <p class="error" id="setup-error" role="alert" hidden></p>
         <button type="submit" class="primary" id="deal">Deal a card</button>
         <p class="hint" id="pool-hint"></p>

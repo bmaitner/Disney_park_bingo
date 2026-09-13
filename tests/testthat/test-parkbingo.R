@@ -73,6 +73,38 @@ test_that("balanced sampling spreads difficulty", {
   expect_gte(sum(card$squares$p_crossed >= thirds[2]), 6)
 })
 
+test_that("difficulty levels tilt the mix and always make a card", {
+  squares <- bingo_squares()
+  mean_p <- function(level) {
+    mean(vapply(1:30, function(s) {
+      card <- make_bingo_card(squares, mode = "fan", age = "child",
+                              park = "EPCOT", difficulty = level, seed = s)
+      mean(card$squares$p_crossed)
+    }, numeric(1)))
+  }
+  easy <- mean_p("easy")
+  any <- mean_p("any")
+  hard <- mean_p("hard")
+  expect_gt(easy, any)
+  expect_gt(any, hard)
+
+  for (mode in c("cynic", "fan")) {
+    for (age in c("child", "adult")) {
+      for (level in c("easy", "medium", "hard")) {
+        card <- make_bingo_card(squares, mode = mode, age = age,
+                                difficulty = level, seed = 1)
+        expect_equal(nrow(card$squares), 24)
+      }
+    }
+  }
+
+  ranged <- make_bingo_card(squares, mode = "mixed", difficulty = c(0.3, 0.9),
+                            seed = 1)
+  expect_true(all(ranged$squares$p_crossed >= 0.3 &
+                    ranged$squares$p_crossed <= 0.9))
+  expect_error(filter_squares(squares, difficulty = "hard"), "make_bingo_card")
+})
+
 test_that("bingo odds behave", {
   card <- make_bingo_card(seed = 2)
   easy <- card

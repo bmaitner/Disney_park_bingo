@@ -42,8 +42,8 @@ save_bingo_cards(cards, "epcot_bingo.pdf", title_family = "Segoe Script")
 | `mode` | `"cynic"`, `"fan"`, or `"mixed"`. Squares tagged `any` fit both modes. |
 | `age` | `"adult"` (all squares) or `"child"` (child-suitable squares only). |
 | `park` | `"any"` or a park: `"Magic Kingdom"`/`"MK"`, `"EPCOT"`, `"Hollywood Studios"`/`"HS"`, `"Animal Kingdom"`/`"AK"`, `"Disney Springs"`, `"Typhoon Lagoon"`, `"Blizzard Beach"`. A specific park adds its own squares to the ones that can happen anywhere; `park_weight` controls how often they get picked. |
-| `difficulty` | `"any"`, `"easy"` (`p_crossed >= 0.6`), `"medium"` (0.3 to 0.6), `"hard"` (`< 0.3`), or a numeric `c(min, max)` range. |
-| `balance` | `TRUE` (default) draws evenly from the easy, medium, and hard thirds of the eligible squares, so cards made together are about equally hard. |
+| `difficulty` | Tilts the mix of squares from the easiest, middle, and hardest thirds of the eligible squares (by `p_crossed`). On a 5x5 card: `"any"` 8/8/8, `"easy"` 12/8/4, `"medium"` 4/16/4, `"hard"` 4/8/12. Every setting can make a card at every level. A numeric `c(min, max)` instead keeps only squares with `p_crossed` in that range. |
+| `balance` | With `difficulty = "any"`, `TRUE` (default) draws evenly from the thirds so cards made together are about equally hard; `FALSE` draws at random. |
 | `size`, `free_space` | Grid size (default 5) and whether the center is a free space. |
 
 ## Phone app
@@ -61,8 +61,9 @@ python -m http.server 8765 --directory app
 Then open <http://localhost:8765>. Open <http://localhost:8765/tests.html> to run
 the app's tests, which also check that its card logic agrees with the R package.
 
-**Install it on a phone.** The app has to be served over HTTPS, e.g. with GitHub
-Pages publishing the `app/` folder. Open the URL on the phone, then:
+**Install it on a phone.** Every push to `main` that touches `app/` publishes it
+to GitHub Pages (`.github/workflows/pages.yml`) at
+<https://bmaitner.github.io/Disney_park_bingo/>. Open that on the phone, then:
 
 - iPhone (Safari): Share, then *Add to Home Screen*
 - Android (Chrome): menu, then *Add to Home screen* or *Install app*
@@ -73,8 +74,9 @@ Pages publishing the `app/` folder. Open the URL on the phone, then:
 Rscript tools/update_app.R
 ```
 
-The R tests fail if `app/squares.json` is out of date. When you change the list of
-app files, also bump `CACHE` in `app/sw.js` so installed copies pick up the change.
+The R tests fail if `app/squares.json` is out of date. Installed copies pick up a
+new deploy the next time the app is opened with a signal. If you add files to the
+app, list them in `FILES` in `app/sw.js` so they work offline.
 
 The app keeps finished cards (which squares were crossed off) on the phone for
 future feedback collection with `update_difficulty()`.

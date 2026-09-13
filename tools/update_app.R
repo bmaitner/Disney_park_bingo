@@ -17,14 +17,11 @@ combos <- expand.grid(
   mode = c("cynic", "fan", "mixed"),
   age = c("adult", "child"),
   park = square_vocab()$parks,
-  difficulty = c("any", "easy", "medium", "hard"),
   stringsAsFactors = FALSE
 )
 combos$n <- mapply(
-  function(mode, age, park, difficulty) {
-    nrow(filter_squares(squares, mode, age, park, difficulty))
-  },
-  combos$mode, combos$age, combos$park, combos$difficulty
+  function(mode, age, park) nrow(filter_squares(squares, mode, age, park)),
+  combos$mode, combos$age, combos$park
 )
 combos$audience <- mapply(
   function(mode, age, park) {

@@ -29,17 +29,22 @@ squares.}
 \item{park}{A park name or code (see \code{\link[=park_code]{park_code()}}). \code{"any"} keeps only
 squares that can happen anywhere; a specific park adds its own squares.}
 
-\item{difficulty}{\code{"any"} (no filter), \code{"easy"} (\code{p_crossed >= 0.6}),
-\code{"medium"} (0.3-0.6), \code{"hard"} (\code{p_crossed < 0.3}), or a numeric
-\code{c(min, max)} range of \code{p_crossed}.}
+\item{difficulty}{How hard the card should be. Levels tilt the mix of
+squares drawn from the easiest, middle, and hardest thirds (by
+\code{p_crossed}) of the eligible squares, so every setting can make a card:
+\code{"any"} draws evenly (8/8/8 on a 5x5 card), \code{"easy"} favors easy squares
+(12/8/4), \code{"medium"} favors the middle (4/16/4), and \code{"hard"} favors hard
+squares (4/8/12). A numeric \code{c(min, max)} instead keeps only squares with
+\code{p_crossed} in that range.}
 
 \item{size}{Number of rows (and columns). Defaults to 5.}
 
 \item{free_space}{Put a free space in the center (odd sizes only)?}
 
-\item{balance}{If \code{TRUE}, draw evenly across easy/medium/hard thirds of the
-eligible squares (by \code{p_crossed}) so that cards made together are
-comparably hard.}
+\item{balance}{With \code{difficulty = "any"} or a numeric range, \code{TRUE} draws
+evenly across the easiest, middle, and hardest thirds so that cards made
+together are comparably hard; \code{FALSE} draws at random. Difficulty levels
+always use their tilted mix.}
 
 \item{park_weight}{Relative chance of drawing a park-specific square versus
 a square that can happen anywhere, when \code{park} is a specific park.}

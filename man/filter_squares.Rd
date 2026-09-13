@@ -24,16 +24,16 @@ squares.}
 \item{park}{A park name or code (see \code{\link[=park_code]{park_code()}}). \code{"any"} keeps only
 squares that can happen anywhere; a specific park adds its own squares.}
 
-\item{difficulty}{\code{"any"} (no filter), \code{"easy"} (\code{p_crossed >= 0.6}),
-\code{"medium"} (0.3-0.6), \code{"hard"} (\code{p_crossed < 0.3}), or a numeric
-\code{c(min, max)} range of \code{p_crossed}.}
+\item{difficulty}{\code{"any"} (no filter) or a numeric \code{c(min, max)} range of
+\code{p_crossed} to keep. Named difficulty levels don't filter; see
+\code{\link[=make_bingo_card]{make_bingo_card()}}.}
 }
 \value{
 The filtered squares table.
 }
 \description{
-Selects the squares eligible for a card with the given mode, age, park, and
-difficulty.
+Selects the squares eligible for a card with the given mode, age, and park,
+optionally restricted to a range of \code{p_crossed}.
 }
 \examples{
 nrow(filter_squares(bingo_squares(), mode = "fan", age = "child", park = "EPCOT"))

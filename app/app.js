@@ -45,14 +45,14 @@ function readSettings() {
     age: form.get("age"),
     mode: form.get("mode"),
     park: form.get("park"),
-    difficulty: "any", // No picker yet: most settings lack enough easy or hard squares.
+    difficulty: form.get("difficulty"),
   };
 }
 
 function applySettings(settings) {
   if (!settings) return;
   const form = $("setup-form");
-  for (const key of ["age", "mode"]) {
+  for (const key of ["age", "mode", "difficulty"]) {
     const input = form.querySelector(`input[name="${key}"][value="${settings[key]}"]`);
     if (input) input.checked = true;
   }
