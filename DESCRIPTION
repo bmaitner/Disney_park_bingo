@@ -1,0 +1,29 @@
+Package: parkbingo
+Title: Generate Randomized Bingo Cards for Walt Disney World Parks
+Version: 0.1.0
+Authors@R:
+    person("Brian", "Maitner", email = "bmaitner@gmail.com",
+           role = c("aut", "cre"))
+Description: Builds randomized bingo cards for a day at Walt Disney World
+    parks from a curated table of squares. Each square is tagged with a
+    mode ('cynic' or 'fan'), age suitability ('child' or 'adult'), the parks
+    where it applies, and an estimated probability of being crossed off.
+    Cards can be filtered and difficulty-balanced, rendered to PDF, scored for
+    their odds of a bingo, and difficulty estimates can be refined from
+    player feedback. Not affiliated with or endorsed by The Walt Disney
+    Company.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Depends:
+    R (>= 4.1.0)
+Imports:
+    grDevices,
+    grid,
+    stats,
+    utils
+Suggests:
+    nanoparquet,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
