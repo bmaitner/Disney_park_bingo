@@ -1,0 +1,164 @@
+id,text,mode,age,park,category,p_crossed,n_feedback
+sq0001,Someone napping,cynic,child,any,people,0.80,0
+sq0002,All Disney head to toe,any,child,any,outfits,0.85,0
+sq0003,Outfit that doesn't fit,cynic,adult,any,outfits,0.60,0
+sq0004,Vapid influencer,cynic,adult,any,people,0.55,0
+sq0005,High heels,cynic,child,any,outfits,0.45,0
+sq0006,Plastic surgery nightmare,cynic,adult,any,people,0.25,0
+sq0007,Boy mom,cynic,adult,any,people,0.50,0
+sq0008,Eating food bigger than head,any,child,any,food,0.70,0
+sq0009,Dad/Daddy unclear couple,cynic,adult,any,people,0.20,0
+sq0010,Umbrella as parasol,cynic,child,any,weather,0.65,0
+sq0011,Red hat,cynic,adult,any,outfits,0.40,0
+sq0012,Excessive PDA,cynic,adult,any,people,0.55,0
+sq0013,Furry tail,cynic,child,any,outfits,0.20,0
+sq0014,2 kids crying in same party,cynic,child,any,people,0.60,0
+sq0015,Face tattoo,cynic,adult,any,people,0.35,0
+sq0016,Bathing suit / bra as top,cynic,adult,any,outfits,0.40,0
+sq0017,Family matching shirts,any,child,any,outfits,0.90,0
+sq0018,Offensive shirt,cynic,adult,any,outfits,0.35,0
+sq0019,Portuguese speakers,cynic,child,any,people,0.75,0
+sq0020,Sunburnt individual,cynic,child,any,weather,0.70,0
+sq0021,Someone telling kid to smile,cynic,adult,any,people,0.60,0
+sq0022,Columbia PFG,cynic,child,any,outfits,0.55,0
+sq0023,Proselytizing T-shirt,cynic,adult,any,outfits,0.20,0
+sq0024,Couple fighting,cynic,adult,any,people,0.50,0
+sq0025,Stroller traffic jam,cynic,child,any,people,0.80,0
+sq0026,Walking while staring at phone,cynic,child,any,people,0.85,0
+sq0027,Adult having a tantrum,cynic,child,any,people,0.30,0
+sq0028,Dropped ice cream on the ground,cynic,child,any,food,0.30,0
+sq0029,Posted wait over 90 minutes,cynic,child,any,rides,0.65,0
+sq0030,Ride temporarily closed,cynic,child,any,rides,0.55,0
+sq0031,Arguing with a cast member,cynic,adult,any,people,0.30,0
+sq0032,Phone held up for an entire show,cynic,child,any,shows,0.65,0
+sq0033,Selfie stick,cynic,child,any,people,0.45,0
+sq0034,Someone cutting in line,cynic,child,any,rides,0.35,0
+sq0035,Kid on a backpack leash,cynic,child,any,people,0.35,0
+sq0036,Scooter bumps someone's ankles,cynic,child,any,people,0.40,0
+sq0037,Complaining about prices,cynic,child,any,people,0.55,0
+sq0038,Parent yelling kid's full name,cynic,child,any,people,0.50,0
+sq0039,Stroller loaded like a pack mule,cynic,child,any,people,0.60,0
+sq0040,Asleep during a show,cynic,child,any,shows,0.45,0
+sq0041,Sweat-soaked shirt,cynic,child,any,weather,0.75,0
+sq0042,Crocs with charms,cynic,child,any,outfits,0.70,0
+sq0043,Fanny pack worn crossbody,cynic,child,any,outfits,0.80,0
+sq0044,Running to a ride,cynic,child,any,rides,0.55,0
+sq0045,Phone charging cord dangling,cynic,child,any,people,0.55,0
+sq0046,Tour group following a flag,cynic,child,any,people,0.55,0
+sq0047,Portable speaker blasting music,cynic,child,any,people,0.20,0
+sq0048,Jeans in 95 degree heat,cynic,child,any,outfits,0.60,0
+sq0049,Wearing another theme park's shirt,cynic,child,any,outfits,0.30,0
+sq0050,Someone holding all the bags,cynic,child,any,people,0.70,0
+sq0051,Visibly tipsy adult,cynic,adult,any,people,0.40,0
+sq0052,Vaping where you shouldn't,cynic,adult,any,people,0.30,0
+sq0053,Parent on phone ignoring kid,cynic,adult,any,people,0.55,0
+sq0054,Bachelorette party,cynic,adult,any,people,0.25,0
+sq0055,Adult crying (not happy tears),cynic,adult,any,people,0.25,0
+sq0056,Drinking pun T-shirt,cynic,adult,any,outfits,0.45,0
+sq0057,"""It was better in the '90s""",cynic,adult,any,people,0.25,0
+sq0058,Clearly hungover,cynic,adult,any,people,0.30,0
+sq0059,Kid bribed with a toy,cynic,adult,any,people,0.50,0
+sq0060,"""We paid a lot of money for this""",cynic,adult,any,people,0.35,0
+sq0061,Someone yelling at their family,cynic,adult,any,people,0.45,0
+sq0062,Adult in a full costume,cynic,child,any,outfits,0.15,0
+sq0063,Kid asleep in stroller,any,child,any,people,0.85,0
+sq0064,Parent carrying a sleeping kid,any,child,any,people,0.65,0
+sq0065,Rain poncho,any,child,any,weather,0.50,0
+sq0066,Afternoon thunderstorm,any,child,any,weather,0.45,0
+sq0067,Turkey leg on the go,any,child,any,food,0.50,0
+sq0068,Light-up spinner toy,any,child,any,merch,0.55,0
+sq0069,Cooling off at a misting fan,any,child,any,weather,0.55,0
+sq0070,Hidden Mickey,fan,child,any,park_details,0.60,0
+sq0071,Mickey pretzel,fan,child,any,food,0.55,0
+sq0072,Mickey ice cream bar,fan,child,any,food,0.60,0
+sq0073,Spirit Jersey,fan,child,any,merch,0.85,0
+sq0074,Loaded Minnie ears,fan,child,any,merch,0.60,0
+sq0075,Birthday button,fan,child,any,merch,0.85,0
+sq0076,First Visit button,fan,child,any,merch,0.75,0
+sq0077,Anniversary or Just Married button,fan,child,any,merch,0.35,0
+sq0078,Character meet and greet line,fan,child,any,characters,0.75,0
+sq0079,Character hug,fan,child,any,characters,0.55,0
+sq0080,Kid in a princess dress,fan,child,any,outfits,0.90,0
+sq0081,Kid in a superhero costume,fan,child,any,outfits,0.55,0
+sq0082,Pin trading with a cast member,fan,child,any,merch,0.35,0
+sq0083,"""Have a magical day""",fan,child,any,people,0.70,0
+sq0084,Happy tears,fan,child,any,people,0.35,0
+sq0085,Mickey balloon,fan,child,any,merch,0.75,0
+sq0086,Souvenir popcorn bucket,fan,child,any,merch,0.60,0
+sq0087,Churro,fan,child,any,food,0.70,0
+sq0088,PhotoPass photographer,fan,child,any,park_details,0.80,0
+sq0089,Group in matching ears,fan,child,any,merch,0.55,0
+sq0090,Singing along to a ride song,fan,child,any,rides,0.45,0
+sq0091,Kid starstruck by a character,fan,child,any,characters,0.30,0
+sq0092,Lanyard full of pins,fan,child,any,merch,0.35,0
+sq0093,Grandparents in ears,fan,child,any,merch,0.55,0
+sq0094,Marriage proposal,fan,child,any,people,0.03,0
+sq0095,Someone in a wedding dress,fan,child,any,outfits,0.10,0
+sq0096,Loungefly backpack,fan,child,any,merch,0.70,0
+sq0097,Cast member sticker on a kid,fan,child,any,people,0.45,0
+sq0098,Autograph book,fan,child,any,characters,0.35,0
+sq0099,Custom trip shirt with the year,fan,child,any,outfits,0.55,0
+sq0100,DisneyBounding,fan,child,any,outfits,0.45,0
+sq0101,Waving at a passing boat or train,fan,child,any,park_details,0.55,0
+sq0102,Kids chasing bubbles,fan,child,any,merch,0.45,0
+sq0103,Sorcerer Mickey hat,fan,child,any,merch,0.15,0
+sq0104,Drink with a glow cube,fan,child,any,food,0.35,0
+sq0105,Haunted Mansion wallpaper print,fan,child,any,merch,0.40,0
+sq0106,Quoting a ride spiel,fan,child,any,rides,0.20,0
+sq0107,Couple in Mr & Mrs ears,fan,child,any,merch,0.35,0
+sq0108,Adults in ears with no kids,fan,adult,any,people,0.70,0
+sq0109,Fireworks,fan,child,magic_kingdom;epcot,shows,0.60,0
+sq0110,Monorail overhead,fan,child,magic_kingdom;epcot,park_details,0.70,0
+sq0111,Skyliner gondola,fan,child,epcot;hollywood_studios,park_details,0.55,0
+sq0112,Crowd camped for fireworks 1 hr early,cynic,child,magic_kingdom;epcot,shows,0.55,0
+sq0113,Castle photo pose,fan,child,magic_kingdom,park_details,0.95,0
+sq0114,Jumping for a castle photo,fan,child,magic_kingdom,park_details,0.30,0
+sq0115,Main Street vehicle,fan,child,magic_kingdom,park_details,0.35,0
+sq0116,Railroad whistle,fan,child,magic_kingdom,park_details,0.60,0
+sq0117,Humming It's a Small World,fan,child,magic_kingdom,rides,0.35,0
+sq0118,Haunted Mansion wait over 45 minutes,cynic,child,magic_kingdom,rides,0.55,0
+sq0119,Soaked from Tiana's Bayou Adventure,any,child,magic_kingdom,rides,0.45,0
+sq0120,Seven Dwarfs Mine Train wait over 60 minutes,cynic,child,magic_kingdom,rides,0.60,0
+sq0121,Kid crashing at the Speedway,any,child,magic_kingdom,rides,0.35,0
+sq0122,Dole Whip,fan,child,magic_kingdom,food,0.55,0
+sq0123,Parade,fan,child,magic_kingdom,shows,0.55,0
+sq0124,Trying to pull the Sword in the Stone,fan,child,magic_kingdom,park_details,0.40,0
+sq0125,Spaceship Earth photo,fan,child,epcot,park_details,0.90,0
+sq0126,Figment merch,fan,child,epcot,merch,0.55,0
+sq0127,Drinking Around the World group,any,adult,epcot,food,0.50,0
+sq0128,Visibly tipsy in World Showcase,cynic,adult,epcot,people,0.45,0
+sq0129,Festival passport in hand,fan,child,epcot,food,0.55,0
+sq0130,Frozen Ever After wait over 60 minutes,cynic,child,epcot,rides,0.55,0
+sq0131,Kids collecting pavilion stamps,fan,child,epcot,park_details,0.30,0
+sq0132,Frozen margarita in Mexico,fan,adult,epcot,food,0.40,0
+sq0133,Someone tasting Beverly at Club Cool,fan,child,epcot,food,0.35,0
+sq0134,Remy ears,fan,child,epcot,merch,0.20,0
+sq0135,Blue or green milk,fan,child,hollywood_studios,food,0.55,0
+sq0136,Stormtrooper patrol,fan,child,hollywood_studios,characters,0.45,0
+sq0137,Custom lightsaber box,fan,child,hollywood_studios,merch,0.30,0
+sq0138,Scream from Tower of Terror,any,child,hollywood_studios,rides,0.60,0
+sq0139,Slinky Dog Dash wait over 75 minutes,cynic,child,hollywood_studios,rides,0.60,0
+sq0140,Kid in a Jedi robe,fan,child,hollywood_studios,outfits,0.25,0
+sq0141,Droid rolling along,fan,child,hollywood_studios,merch,0.20,0
+sq0142,Ronto Wrap,fan,child,hollywood_studios,food,0.35,0
+sq0143,Tree of Life photo,fan,child,animal_kingdom,park_details,0.85,0
+sq0144,Animal sleeping so still it looks fake,cynic,child,animal_kingdom,park_details,0.55,0
+sq0145,"""Is that animal real?""",cynic,child,animal_kingdom,people,0.25,0
+sq0146,Screaming on Expedition Everest,any,child,animal_kingdom,rides,0.40,0
+sq0147,Banshee on a shoulder,fan,child,animal_kingdom,merch,0.35,0
+sq0148,Flight of Passage wait over 90 minutes,cynic,child,animal_kingdom,rides,0.60,0
+sq0149,Giraffe close to the safari truck,fan,child,animal_kingdom,park_details,0.60,0
+sq0150,Soaked from Kali River Rapids,any,child,animal_kingdom,rides,0.55,0
+sq0151,Head-to-toe safari outfit,fan,child,animal_kingdom,outfits,0.40,0
+sq0152,World of Disney shopping bag,fan,child,disney_springs,merch,0.80,0
+sq0153,Aerophile balloon aloft,fan,child,disney_springs,park_details,0.40,0
+sq0154,Forgot where they parked,cynic,child,disney_springs,people,0.20,0
+sq0155,Gigantic cupcake,fan,child,disney_springs,food,0.40,0
+sq0156,Amphicar in the water,fan,child,disney_springs,park_details,0.30,0
+sq0157,Crowd around a street performer,fan,child,disney_springs,shows,0.55,0
+sq0158,Hesitating at the top of a slide,any,child,typhoon_lagoon;blizzard_beach,rides,0.50,0
+sq0159,Lost flip-flop,cynic,child,typhoon_lagoon;blizzard_beach,outfits,0.25,0
+sq0160,Wedgie after a slide,cynic,child,typhoon_lagoon;blizzard_beach,outfits,0.45,0
+sq0161,Streaky white sunscreen face,cynic,child,typhoon_lagoon;blizzard_beach,weather,0.35,0
+sq0162,Knocked over in the wave pool,any,child,typhoon_lagoon,rides,0.60,0
+sq0163,Chairlift ride,fan,child,blizzard_beach,rides,0.50,0

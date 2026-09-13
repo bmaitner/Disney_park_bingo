@@ -175,7 +175,7 @@ park_code <- function(park) {
   if (length(park) != 1 || is.na(park)) {
     stop("`park` must be a single park name.", call. = FALSE)
   }
-  key <- sub("^disney['’]?s\\s+", "", tolower(park))
+  key <- sub("^disney['\u2019]?s\\s+", "", tolower(park))
   key <- gsub("[^a-z]", "", key)
   aliases <- c(
     any = "any", all = "any",
