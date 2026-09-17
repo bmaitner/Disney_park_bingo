@@ -270,3 +270,15 @@ test_that("result responses are parsed for update_difficulty", {
   expect_error(fetch_results(endpoint = "", token = ""), "PARKBINGO_ENDPOINT")
   expect_equal(formals(fetch_results)$min_minutes, 60)
 })
+
+test_that("visit counts parse from the inbox", {
+  json <- '{"ok":true,"visits":[{"date":"2026-09-16","visits":"12"},{"date":"2026-09-17","visits":"3"}]}'
+  visits <- parkbingo:::parse_visits(json)
+  expect_equal(visits$date, as.Date(c("2026-09-16", "2026-09-17")))
+  expect_equal(visits$visits, c(12L, 3L))
+
+  empty <- parkbingo:::parse_visits('{"ok":true,"visits":[]}')
+  expect_equal(nrow(empty), 0)
+  expect_s3_class(empty$date, "Date")
+  expect_error(fetch_visits(endpoint = "", token = ""), "PARKBINGO_ENDPOINT")
+})

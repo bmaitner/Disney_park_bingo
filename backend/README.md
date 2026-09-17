@@ -1,6 +1,6 @@
 # Player inbox setup
 
-The phone app sends two things to a Google Sheet that only you can see, through a
+The phone app sends three things to a Google Sheet that only you can see, through a
 small Google Apps Script web app ([`inbox.gs`](inbox.gs)). Players don't need an
 account for either:
 
@@ -10,6 +10,8 @@ account for either:
   card adds one row per square to the **results** tab: the card's settings, when
   it was started and finished, the square id, and whether it was crossed off.
   Nothing identifies the player or the phone.
+- **App opens**, counted per day (UTC) in the **visits** tab. Only the date and a
+  running count are stored.
 
 ## One-time setup (about 10 minutes)
 
@@ -87,13 +89,26 @@ This keeps the same URL. Creating a *new* deployment instead changes the URL.
 Until the new version is deployed, the app keeps finished-card results waiting on
 players' phones and sends them once the inbox accepts them.
 
+## Counting app opens
+
+```r
+visits <- fetch_visits()
+sum(visits$visits)                                   # all-time opens
+visits[visits$date >= Sys.Date() - 30, ]             # the last month
+```
+
+Each page load of the published app counts once, including repeat opens by the
+same person. Opens without signal and local testing on `localhost` aren't counted.
+Counting starts once the updated `inbox.gs` is deployed (see below).
+
 ## Abuse protection
 
 - A hidden trap field catches simple bots.
 - Text is limited to 60 characters and notes to 200.
 - Mode, age, park, difficulty, card ids, square ids, and times must be valid.
 - Retried submissions are de-duplicated.
-- The script accepts at most 300 suggestions and 300 card results per hour in total.
+- The script accepts at most 300 suggestions and 300 card results per hour in total,
+  and counts at most 5,000 app opens per hour.
 - Text that looks like a spreadsheet formula is stored as plain text.
 
 Results can't be verified, so someone could send made-up cards. If a batch looks

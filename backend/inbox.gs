@@ -5,8 +5,9 @@
  * here:
  *   - square suggestions, one row each in the "suggestions" tab
  *   - finished-card results, one row per square in the "results" tab
- * The R functions fetch_suggestions() and fetch_results() read them back using
- * a private read token. See backend/README.md for setup.
+ *   - app opens, counted per day in the "visits" tab
+ * The R functions fetch_suggestions(), fetch_results() and fetch_visits() read
+ * them back using a private read token. See backend/README.md for setup.
  */
 
 const SHEETS = {
@@ -17,11 +18,12 @@ const SHEETS = {
     "received_at", "submission_id", "card_id", "mode", "age", "park", "difficulty",
     "started_at", "ended_at", "square_id", "crossed",
   ],
+  visits: ["date", "visits"],
 };
 const MAX_TEXT = 60;
 const MAX_NOTE = 200;
 // Across all players; guards against floods.
-const MAX_PER_HOUR = { suggestions: 300, results: 300 };
+const MAX_PER_HOUR = { suggestions: 300, results: 300, visits: 5000 };
 
 const SQUARE_MODES = ["cynic", "fan", "any"];
 const CARD_MODES = ["cynic", "fan", "mixed"];
@@ -37,8 +39,10 @@ function doPost(e) {
     const body = JSON.parse(e.postData.contents);
     if (body.type === "suggestion") return json(addSuggestion(body));
     if (body.type === "result") return json(addResult(body));
+    if (body.type === "visit") return json(addVisit());
     if (body.type === "list_suggestions") return json(listRows(body, "suggestions"));
     if (body.type === "list_results") return json(listRows(body, "results"));
+    if (body.type === "list_visits") return json(listRows(body, "visits"));
     return json({ ok: false, error: "unknown request type" });
   } catch (err) {
     return json({ ok: false, error: "bad request" });
@@ -47,7 +51,7 @@ function doPost(e) {
 
 // Health check: open the web app URL in a browser to confirm it's deployed.
 function doGet() {
-  return json({ ok: true, service: "parkbingo", accepts: ["suggestion", "result"] });
+  return json({ ok: true, service: "parkbingo", accepts: ["suggestion", "result", "visit"] });
 }
 
 function addSuggestion(body) {
@@ -107,6 +111,33 @@ function addResult(body) {
     ];
   });
   return appendRows("results", id, rows);
+}
+
+// Count one app open in today's row (UTC). Nothing about the visitor is kept.
+function addVisit() {
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const cache = CacheService.getScriptCache();
+    const hourKey = "visits-" + Math.floor(Date.now() / 3600000);
+    const count = Number(cache.get(hourKey) || 0);
+    if (count >= MAX_PER_HOUR.visits) return { ok: true, skipped: true };
+    cache.put(hourKey, String(count + 1), 3600);
+
+    const sheet = getSheet("visits");
+    const today = new Date().toISOString().slice(0, 10);
+    const last = sheet.getLastRow();
+    // Days are appended in order, so today's row is always the last one.
+    if (last > 1 && sheet.getRange(last, 1).getDisplayValue() === today) {
+      const cell = sheet.getRange(last, 2);
+      cell.setValue(String(Number(cell.getDisplayValue()) + 1));
+    } else {
+      sheet.appendRow([today, "1"]);
+    }
+    return { ok: true };
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 // Append rows for one submission, skipping repeats of the same submission_id.

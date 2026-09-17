@@ -300,6 +300,17 @@ async function submitSuggestion(event) {
     : "Thanks! It'll send when you have signal.");
 }
 
+// Anonymous open count for the "visits" tab of the inbox. Sends nothing about
+// the player; opens while offline or during local development aren't counted.
+function countVisit() {
+  if (["localhost", "127.0.0.1"].includes(location.hostname)) return;
+  fetch(SUBMIT_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({ type: "visit" }),
+  }).catch(() => {});
+}
+
 function fitAllLabels() {
   fitLabels($("board").children);
 }
@@ -349,6 +360,7 @@ async function start() {
       if (document.visibilityState === "visible") sendOutbox();
     });
     sendOutbox();
+    countVisit();
   }
 
   let resizeTimer;
