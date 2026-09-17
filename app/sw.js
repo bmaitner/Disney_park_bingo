@@ -26,7 +26,14 @@ const FILES = [
 ];
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(FILES)));
+  // cache: "reload" skips the browser's HTTP cache. GitHub Pages lets browsers
+  // reuse files for 10 minutes, which could otherwise fill a new cache with the
+  // previous version's files.
+  event.waitUntil(
+    caches.open(CACHE).then((cache) =>
+      cache.addAll(FILES.map((file) => new Request(file, { cache: "reload" })))
+    )
+  );
   self.skipWaiting();
 });
 
@@ -46,7 +53,7 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.open(CACHE).then(async (cache) => {
       const cached = await cache.match(request, { ignoreSearch: true });
-      const refresh = fetch(request)
+      const refresh = fetch(request, { cache: "no-cache" })
         .then((response) => {
           if (response.ok) cache.put(request, response.clone());
           return response;
