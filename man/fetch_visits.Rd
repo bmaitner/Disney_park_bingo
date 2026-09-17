@@ -2,7 +2,7 @@
 % Please edit documentation in R/inbox.R
 \name{fetch_visits}
 \alias{fetch_visits}
-\title{Fetch daily app open counts}
+\title{Fetch daily app usage counts}
 \usage{
 fetch_visits(
   endpoint = Sys.getenv("PARKBINGO_ENDPOINT"),
@@ -18,18 +18,22 @@ script. Defaults to the \code{PARKBINGO_TOKEN} environment variable.}
 }
 \value{
 A data frame with one row per day that had at least one open:
-\code{date} (a Date) and \code{visits} (integer).
+\code{date} (a Date), \code{visits} (app opens), \code{cards} (cards dealt in the app),
+and \code{printed} (cards printed). Counts are integers; days from before cards
+were counted have \code{0} cards.
 }
 \description{
-Reads how many times the phone app was opened each day (UTC), from the
-Google Sheet inbox described in \code{backend/README.md}. Each page load of the
-published app counts once; opens without signal aren't counted. Nothing
-identifies the player, so repeat opens by the same person each count.
+Reads how many times the phone app was opened, how many cards were dealt,
+and how many cards were printed each day (UTC), from the Google Sheet inbox
+described in \code{backend/README.md}. Each page load of the published app counts
+as one visit, and each dealt card counts once, so a player who works through
+ten cards adds ten \code{cards}. Printed cards count when the print dialog opens.
+Anything done without signal isn't counted. Nothing identifies the player.
 Requires the curl package.
 }
 \examples{
 \dontrun{
 visits <- fetch_visits()
-sum(visits$visits)
+colSums(visits[c("visits", "cards", "printed")])
 }
 }

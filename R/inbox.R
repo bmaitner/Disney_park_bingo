@@ -57,22 +57,26 @@ parse_results <- function(json, min_minutes = 0) {
   out
 }
 
-#' Fetch daily app open counts
+#' Fetch daily app usage counts
 #'
-#' Reads how many times the phone app was opened each day (UTC), from the
-#' Google Sheet inbox described in `backend/README.md`. Each page load of the
-#' published app counts once; opens without signal aren't counted. Nothing
-#' identifies the player, so repeat opens by the same person each count.
+#' Reads how many times the phone app was opened, how many cards were dealt,
+#' and how many cards were printed each day (UTC), from the Google Sheet inbox
+#' described in `backend/README.md`. Each page load of the published app counts
+#' as one visit, and each dealt card counts once, so a player who works through
+#' ten cards adds ten `cards`. Printed cards count when the print dialog opens.
+#' Anything done without signal isn't counted. Nothing identifies the player.
 #' Requires the curl package.
 #'
 #' @inheritParams fetch_suggestions
 #' @return A data frame with one row per day that had at least one open:
-#'   `date` (a Date) and `visits` (integer).
+#'   `date` (a Date), `visits` (app opens), `cards` (cards dealt in the app),
+#'   and `printed` (cards printed). Counts are integers; days from before cards
+#'   were counted have `0` cards.
 #' @export
 #' @examples
 #' \dontrun{
 #' visits <- fetch_visits()
-#' sum(visits$visits)
+#' colSums(visits[c("visits", "cards", "printed")])
 #' }
 fetch_visits <- function(endpoint = Sys.getenv("PARKBINGO_ENDPOINT"),
                          token = Sys.getenv("PARKBINGO_TOKEN")) {
@@ -80,12 +84,14 @@ fetch_visits <- function(endpoint = Sys.getenv("PARKBINGO_ENDPOINT"),
 }
 
 parse_visits <- function(json) {
-  rows <- parse_inbox(json, "visits", c("date", "visits"))
-  data.frame(
-    date = as.Date(rows$date),
-    visits = as.integer(rows$visits),
-    stringsAsFactors = FALSE
-  )
+  counts <- c("visits", "cards", "printed")
+  rows <- parse_inbox(json, "visits", c("date", counts))
+  out <- data.frame(date = as.Date(rows$date))
+  for (name in counts) {
+    n <- suppressWarnings(as.integer(rows[[name]]))
+    out[[name]] <- ifelse(is.na(n), 0L, n)
+  }
+  out
 }
 
 parse_timestamp <- function(x) {

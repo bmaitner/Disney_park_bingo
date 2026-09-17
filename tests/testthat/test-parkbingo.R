@@ -272,10 +272,18 @@ test_that("result responses are parsed for update_difficulty", {
 })
 
 test_that("visit counts parse from the inbox", {
-  json <- '{"ok":true,"visits":[{"date":"2026-09-16","visits":"12"},{"date":"2026-09-17","visits":"3"}]}'
+  json <- paste0('{"ok":true,"visits":[',
+    '{"date":"2026-09-16","visits":"12","cards":"","printed":""},',
+    '{"date":"2026-09-17","visits":"3","cards":"10","printed":"4"}]}')
   visits <- parkbingo:::parse_visits(json)
   expect_equal(visits$date, as.Date(c("2026-09-16", "2026-09-17")))
   expect_equal(visits$visits, c(12L, 3L))
+  expect_equal(visits$cards, c(0L, 10L))
+  expect_equal(visits$printed, c(0L, 4L))
+
+  # Tabs from before cards were counted
+  old <- parkbingo:::parse_visits('{"ok":true,"visits":[{"date":"2026-09-16","visits":"5"}]}')
+  expect_equal(old$cards, 0L)
 
   empty <- parkbingo:::parse_visits('{"ok":true,"visits":[]}')
   expect_equal(nrow(empty), 0)

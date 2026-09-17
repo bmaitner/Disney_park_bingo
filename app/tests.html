@@ -21,7 +21,7 @@
       filterSquares, makeCard, makeRng, completedLines, winningLines, cardAudience,
     } from "./bingo.js";
     import { buildSuggestion, validateSuggestion } from "./suggest.js";
-    import { flushOutbox } from "./outbox.js";
+    import { flushOutbox, sendCount } from "./outbox.js";
     import { buildResult, summarizeCard } from "./results.js";
     import { readPrintSettings, printQuery, makePrintCards } from "./printing.js";
 
@@ -154,6 +154,17 @@
 
     check("inbox without results support keeps items queued",
           (await flushOutbox([item], "https://x/exec", reply({ ok: false, error: "unknown request type" }))).length === 1);
+
+    // Usage counts.
+    calls = [];
+    sendCount("https://x/exec", "print", 4, spy, "example.github.io");
+    check("usage counts send the event and number of cards",
+          calls.length === 1 && JSON.stringify(JSON.parse(calls[0].opts.body)) ===
+            JSON.stringify({ type: "visit", event: "print", n: 4 }));
+    calls = [];
+    sendCount("https://x/exec", "open", 1, spy, "localhost");
+    sendCount("", "open", 1, spy, "example.github.io");
+    check("usage isn't counted locally or without an inbox", calls.length === 0);
 
     // Card results.
     const played = makeCard(squares, { mode: "fan", age: "child", park: "epcot", difficulty: "hard" }, makeRng(11));

@@ -10,8 +10,9 @@ account for either:
   card adds one row per square to the **results** tab: the card's settings, when
   it was started and finished, the square id, and whether it was crossed off.
   Nothing identifies the player or the phone.
-- **App opens**, counted per day (UTC) in the **visits** tab. Only the date and a
-  running count are stored.
+- **Usage counts**, one row per day (UTC) in the **visits** tab: app opens, cards
+  dealt in the app, and cards printed. Only the date and running counts are
+  stored.
 
 ## One-time setup (about 10 minutes)
 
@@ -89,17 +90,25 @@ This keeps the same URL. Creating a *new* deployment instead changes the URL.
 Until the new version is deployed, the app keeps finished-card results waiting on
 players' phones and sends them once the inbox accepts them.
 
-## Counting app opens
+## Counting usage
 
 ```r
 visits <- fetch_visits()
-sum(visits$visits)                                   # all-time opens
+colSums(visits[c("visits", "cards", "printed")])     # all-time totals
 visits[visits$date >= Sys.Date() - 30, ]             # the last month
 ```
 
-Each page load of the published app counts once, including repeat opens by the
-same person. Opens without signal and local testing on `localhost` aren't counted.
-Counting starts once the updated `inbox.gs` is deployed (see below).
+- `visits`: each page load of the published app, including repeat opens by the
+  same person.
+- `cards`: each card dealt in the app, so a player who works through ten cards
+  adds ten.
+- `printed`: cards on the print page, counted when the print dialog opens (even
+  if it's then cancelled).
+
+Nothing done without signal is counted, and neither is local testing on
+`localhost`. Counting starts once the updated `inbox.gs` is deployed (see below).
+The **cards** and **printed** columns are added to an existing visits tab
+automatically.
 
 ## Abuse protection
 
@@ -108,7 +117,7 @@ Counting starts once the updated `inbox.gs` is deployed (see below).
 - Mode, age, park, difficulty, card ids, square ids, and times must be valid.
 - Retried submissions are de-duplicated.
 - The script accepts at most 300 suggestions and 300 card results per hour in total,
-  and counts at most 5,000 app opens per hour.
+  and counts at most 5,000 opens, dealt cards, and prints per hour.
 - Text that looks like a spreadsheet formula is stored as plain text.
 
 Results can't be verified, so someone could send made-up cards. If a batch looks

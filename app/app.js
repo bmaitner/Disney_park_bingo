@@ -1,6 +1,6 @@
 import { makeCard, filterSquares, completedLines, cardAudience } from "./bingo.js";
 import { buildSuggestion, validateSuggestion, MAX_TEXT } from "./suggest.js";
-import { flushOutbox } from "./outbox.js";
+import { flushOutbox, sendCount } from "./outbox.js";
 import { buildResult, summarizeCard } from "./results.js";
 import { SUBMIT_URL } from "./config.js";
 import { fitLabels } from "./fit.js";
@@ -125,6 +125,7 @@ function dealCard(event) {
   saveState();
   renderCard();
   show("card");
+  sendCount(SUBMIT_URL, "card");
 }
 
 function renderCard() {
@@ -300,17 +301,6 @@ async function submitSuggestion(event) {
     : "Thanks! It'll send when you have signal.");
 }
 
-// Anonymous open count for the "visits" tab of the inbox. Sends nothing about
-// the player; opens while offline or during local development aren't counted.
-function countVisit() {
-  if (["localhost", "127.0.0.1"].includes(location.hostname)) return;
-  fetch(SUBMIT_URL, {
-    method: "POST",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify({ type: "visit" }),
-  }).catch(() => {});
-}
-
 function fitAllLabels() {
   fitLabels($("board").children);
 }
@@ -360,7 +350,7 @@ async function start() {
       if (document.visibilityState === "visible") sendOutbox();
     });
     sendOutbox();
-    countVisit();
+    sendCount(SUBMIT_URL, "open");
   }
 
   let resizeTimer;

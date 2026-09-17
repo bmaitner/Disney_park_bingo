@@ -8,6 +8,19 @@ const MAX_ATTEMPTS = 20;
 // means the deployed script predates this kind of submission.
 const RETRY_ERRORS = ["busy", "unknown request type"];
 
+// Fire-and-forget usage count for the inbox's "visits" tab: event is "open",
+// "card" (dealt in the app), or "print" (with n cards). Sends nothing about the
+// player. Counts aren't retried, and local development isn't counted.
+export function sendCount(url, event, n = 1, fetchImpl = fetch,
+                          host = globalThis.location?.hostname) {
+  if (!url || ["localhost", "127.0.0.1"].includes(host)) return;
+  fetchImpl(url, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({ type: "visit", event, n }),
+  }).catch(() => {});
+}
+
 export function newId() {
   if (globalThis.crypto?.randomUUID) return crypto.randomUUID();
   return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;

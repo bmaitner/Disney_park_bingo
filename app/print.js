@@ -1,6 +1,8 @@
 import { cardAudience, filterSquares } from "./bingo.js";
 import { fitLabels } from "./fit.js";
 import { MAX_CARDS, makePrintCards, newSeed, printQuery, readPrintSettings } from "./printing.js";
+import { sendCount } from "./outbox.js";
+import { SUBMIT_URL } from "./config.js";
 
 const $ = (id) => document.getElementById(id);
 const SHEET_WIDTH_IN = 7.4; // fits Letter and A4 inside the page margins
@@ -136,6 +138,12 @@ async function start() {
     render();
   });
   $("print").addEventListener("click", () => window.print());
+  // Also catches the browser's own Print menu. Counts when the print dialog
+  // opens, even if it's then cancelled.
+  window.addEventListener("beforeprint", () => {
+    const cards = $("sheets").children.length;
+    if (cards > 0) sendCount(SUBMIT_URL, "print", cards);
+  });
 
   let resizeTimer;
   window.addEventListener("resize", () => {
