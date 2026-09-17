@@ -2,6 +2,11 @@
 
 Randomized people-watching bingo cards for a day at Walt Disney World parks.
 
+### ▶ Play now: [bmaitner.github.io/Disney_park_bingo](https://bmaitner.github.io/Disney_park_bingo/)
+
+Open it on your phone to deal cards, or print a stack for the whole group. No
+install or account needed.
+
 Every card is drawn from a curated table of squares
 ([`inst/extdata/bingo_squares.csv`](inst/extdata/bingo_squares.csv)). Each square
 is tagged by mode (cynic or fan), age suitability, the parks where it applies, and
