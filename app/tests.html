@@ -21,7 +21,7 @@
       filterSquares, makeCard, makeRng, completedLines, winningLines, cardAudience,
     } from "./bingo.js";
     import { buildSuggestion, validateSuggestion } from "./suggest.js";
-    import { flushOutbox, sendCount } from "./outbox.js";
+    import { flushOutbox, sendCount, deviceId } from "./outbox.js";
     import { buildResult, summarizeCard } from "./results.js";
     import { readPrintSettings, printQuery, makePrintCards } from "./printing.js";
 
@@ -157,10 +157,23 @@
 
     // Usage counts.
     calls = [];
-    sendCount("https://x/exec", "print", 4, spy, "example.github.io");
-    check("usage counts send the event and number of cards",
+    sendCount("https://x/exec", "print", 4, spy, "example.github.io", "device-0001");
+    check("usage counts send the event, number of cards, and device id",
           calls.length === 1 && JSON.stringify(JSON.parse(calls[0].opts.body)) ===
-            JSON.stringify({ type: "visit", event: "print", n: 4 }));
+            JSON.stringify({ type: "visit", event: "print", n: 4, device: "device-0001" }));
+
+    const memory = (items = {}) => ({
+      getItem: (k) => items[k] ?? null, setItem: (k, v) => { items[k] = v; },
+    });
+    const store = memory();
+    const firstId = deviceId(store);
+    check("device id is created once and then reused",
+          /^[A-Za-z0-9-]{8,64}$/.test(firstId) && deviceId(store) === firstId &&
+          deviceId(memory()) !== firstId);
+    check("a malformed stored device id is replaced",
+          /^[A-Za-z0-9-]{8,64}$/.test(deviceId(memory({ "parkbingo.device": "bad id!" }))));
+    const blocked = { getItem: () => { throw new Error("blocked"); } };
+    check("no device id when storage is blocked", deviceId(blocked) === undefined);
     calls = [];
     sendCount("https://x/exec", "open", 1, spy, "localhost");
     sendCount("", "open", 1, spy, "example.github.io");

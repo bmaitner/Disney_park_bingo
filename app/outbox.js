@@ -8,16 +8,34 @@ const MAX_ATTEMPTS = 20;
 // means the deployed script predates this kind of submission.
 const RETRY_ERRORS = ["busy", "unknown request type"];
 
-// Fire-and-forget usage count for the inbox's "visits" tab: event is "open",
-// "card" (dealt in the app), or "print" (with n cards). Sends nothing about the
-// player. Counts aren't retried, and local development isn't counted.
+const DEVICE_KEY = "parkbingo.device";
+
+// A random id kept on this phone so repeat visitors can be told apart from new
+// ones. It's only sent with usage counts, never with suggestions or results.
+// Returns undefined if storage is unavailable (e.g. some private windows).
+export function deviceId(storage = globalThis.localStorage) {
+  try {
+    let id = storage.getItem(DEVICE_KEY);
+    if (!/^[A-Za-z0-9-]{8,64}$/.test(id ?? "")) {
+      id = newId();
+      storage.setItem(DEVICE_KEY, id);
+    }
+    return id;
+  } catch {
+    return undefined;
+  }
+}
+
+// Fire-and-forget usage count for the inbox's "visits" and "visitors" tabs:
+// event is "open", "card" (dealt in the app), or "print" (with n cards).
+// Counts aren't retried, and local development isn't counted.
 export function sendCount(url, event, n = 1, fetchImpl = fetch,
-                          host = globalThis.location?.hostname) {
+                          host = globalThis.location?.hostname, device = deviceId()) {
   if (!url || ["localhost", "127.0.0.1"].includes(host)) return;
   fetchImpl(url, {
     method: "POST",
     headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify({ type: "visit", event, n }),
+    body: JSON.stringify({ type: "visit", event, n, device }),
   }).catch(() => {});
 }
 

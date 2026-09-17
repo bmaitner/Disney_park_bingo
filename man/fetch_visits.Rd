@@ -19,21 +19,24 @@ script. Defaults to the \code{PARKBINGO_TOKEN} environment variable.}
 \value{
 A data frame with one row per day that had at least one open:
 \code{date} (a Date), \code{visits} (app opens), \code{cards} (cards dealt in the app),
-and \code{printed} (cards printed). Counts are integers; days from before cards
-were counted have \code{0} cards.
+\code{printed} (cards printed), and \code{visitors} (different devices). Counts are
+integers; days from before a count was added have \code{0} for it.
 }
 \description{
 Reads how many times the phone app was opened, how many cards were dealt,
-and how many cards were printed each day (UTC), from the Google Sheet inbox
-described in \code{backend/README.md}. Each page load of the published app counts
-as one visit, and each dealt card counts once, so a player who works through
-ten cards adds ten \code{cards}. Printed cards count when the print dialog opens.
-Anything done without signal isn't counted. Nothing identifies the player.
-Requires the curl package.
+how many cards were printed, and how many different devices did any of
+those each day (UTC), from the Google Sheet inbox described in
+\code{backend/README.md}. Each page load of the published app counts as one
+visit, and each dealt card counts once, so a player who works through ten
+cards adds ten \code{cards}. Printed cards count when the print dialog opens.
+Anything done without signal isn't counted. Requires the curl package.
 }
 \examples{
 \dontrun{
 visits <- fetch_visits()
 colSums(visits[c("visits", "cards", "printed")])
 }
+}
+\seealso{
+\code{\link[=fetch_visitors]{fetch_visitors()}} for totals per device.
 }

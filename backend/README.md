@@ -10,9 +10,10 @@ account for either:
   card adds one row per square to the **results** tab: the card's settings, when
   it was started and finished, the square id, and whether it was crossed off.
   Nothing identifies the player or the phone.
-- **Usage counts**, one row per day (UTC) in the **visits** tab: app opens, cards
-  dealt in the app, and cards printed. Only the date and running counts are
-  stored.
+- **Usage counts**: app opens, cards dealt in the app, and cards printed. The
+  **visits** tab has one row per day (UTC), and the **visitors** tab has one row
+  per device, identified by a random id the app keeps on the phone. That id
+  isn't sent with suggestions or results.
 
 ## One-time setup (about 10 minutes)
 
@@ -96,6 +97,10 @@ players' phones and sends them once the inbox accepts them.
 visits <- fetch_visits()
 colSums(visits[c("visits", "cards", "printed")])     # all-time totals
 visits[visits$date >= Sys.Date() - 30, ]             # the last month
+
+visitors <- fetch_visitors()
+nrow(visitors)                                       # different devices
+mean(visitors$days > 1)                              # share that came back another day
 ```
 
 - `visits`: each page load of the published app, including repeat opens by the
@@ -104,11 +109,19 @@ visits[visits$date >= Sys.Date() - 30, ]             # the last month
   adds ten.
 - `printed`: cards on the print page, counted when the print dialog opens (even
   if it's then cancelled).
+- `visitors` (in `fetch_visits()`): how many different devices did any of those
+  that day.
+
+`fetch_visitors()` has each device's first and last day, how many days it was
+used, and its totals. A device is one browser on one phone, so the same person
+counts twice if they use two browsers or clear the site's data. On iPhone, Safari
+and the home-screen app also count separately. Devices that used the app before
+ids were added start counting as new the first time they open the updated app.
 
 Nothing done without signal is counted, and neither is local testing on
 `localhost`. Counting starts once the updated `inbox.gs` is deployed (see below).
-The **cards** and **printed** columns are added to an existing visits tab
-automatically.
+New columns are added to an existing visits tab automatically, and the visitors
+tab is created the first time it's needed.
 
 ## Abuse protection
 
@@ -117,7 +130,8 @@ automatically.
 - Mode, age, park, difficulty, card ids, square ids, and times must be valid.
 - Retried submissions are de-duplicated.
 - The script accepts at most 300 suggestions and 300 card results per hour in total,
-  and counts at most 5,000 opens, dealt cards, and prints per hour.
+  and counts at most 5,000 opens, dealt cards, and prints per hour. Device ids must
+  look like the ids the app makes.
 - Text that looks like a spreadsheet formula is stored as plain text.
 
 Results can't be verified, so someone could send made-up cards. If a batch looks

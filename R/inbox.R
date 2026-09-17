@@ -60,18 +60,19 @@ parse_results <- function(json, min_minutes = 0) {
 #' Fetch daily app usage counts
 #'
 #' Reads how many times the phone app was opened, how many cards were dealt,
-#' and how many cards were printed each day (UTC), from the Google Sheet inbox
-#' described in `backend/README.md`. Each page load of the published app counts
-#' as one visit, and each dealt card counts once, so a player who works through
-#' ten cards adds ten `cards`. Printed cards count when the print dialog opens.
-#' Anything done without signal isn't counted. Nothing identifies the player.
-#' Requires the curl package.
+#' how many cards were printed, and how many different devices did any of
+#' those each day (UTC), from the Google Sheet inbox described in
+#' `backend/README.md`. Each page load of the published app counts as one
+#' visit, and each dealt card counts once, so a player who works through ten
+#' cards adds ten `cards`. Printed cards count when the print dialog opens.
+#' Anything done without signal isn't counted. Requires the curl package.
 #'
 #' @inheritParams fetch_suggestions
 #' @return A data frame with one row per day that had at least one open:
 #'   `date` (a Date), `visits` (app opens), `cards` (cards dealt in the app),
-#'   and `printed` (cards printed). Counts are integers; days from before cards
-#'   were counted have `0` cards.
+#'   `printed` (cards printed), and `visitors` (different devices). Counts are
+#'   integers; days from before a count was added have `0` for it.
+#' @seealso [fetch_visitors()] for totals per device.
 #' @export
 #' @examples
 #' \dontrun{
@@ -84,14 +85,60 @@ fetch_visits <- function(endpoint = Sys.getenv("PARKBINGO_ENDPOINT"),
 }
 
 parse_visits <- function(json) {
-  counts <- c("visits", "cards", "printed")
+  counts <- c("visits", "cards", "printed", "visitors")
   rows <- parse_inbox(json, "visits", c("date", counts))
   out <- data.frame(date = as.Date(rows$date))
-  for (name in counts) {
-    n <- suppressWarnings(as.integer(rows[[name]]))
-    out[[name]] <- ifelse(is.na(n), 0L, n)
-  }
+  out[counts] <- lapply(rows[counts], as_count)
   out
+}
+
+#' Fetch usage totals per device
+#'
+#' Reads one row per device that has used the phone app, from the Google Sheet
+#' inbox described in `backend/README.md`. Devices are identified by a random
+#' id the app keeps on the phone, so this tells repeat visitors apart from new
+#' ones without identifying anyone. The id isn't linked to suggestions or card
+#' results. The same person counts as more than one device if they use more
+#' than one phone or browser, clear the site's data, or (on iPhone) use the app
+#' both in Safari and from the home screen. Requires the curl package.
+#'
+#' @inheritParams fetch_suggestions
+#' @return A data frame with one row per device: `device_id`, `first_seen` and
+#'   `last_seen` (Dates, UTC), `days` (how many different days it was used),
+#'   and its total `visits`, `cards`, and `printed`.
+#' @seealso [fetch_visits()] for daily counts, including visitors per day.
+#' @export
+#' @examples
+#' \dontrun{
+#' visitors <- fetch_visitors()
+#' nrow(visitors)                 # different devices
+#' mean(visitors$days > 1)        # share that came back on another day
+#' table(visitors$first_seen)     # new devices per day
+#' }
+fetch_visitors <- function(endpoint = Sys.getenv("PARKBINGO_ENDPOINT"),
+                           token = Sys.getenv("PARKBINGO_TOKEN")) {
+  parse_visitors(inbox_request("list_visitors", endpoint, token))
+}
+
+parse_visitors <- function(json) {
+  counts <- c("days", "visits", "cards", "printed")
+  rows <- parse_inbox(json, "visitors",
+                      c("device_id", "first_seen", "last_seen", counts))
+  out <- data.frame(
+    device_id = rows$device_id,
+    first_seen = as.Date(rows$first_seen),
+    last_seen = as.Date(rows$last_seen),
+    stringsAsFactors = FALSE
+  )
+  out[counts] <- lapply(rows[counts], as_count)
+  out
+}
+
+# Sheet counts arrive as text; blanks (columns added later) are 0.
+as_count <- function(x) {
+  n <- suppressWarnings(as.integer(x))
+  n[is.na(n)] <- 0L
+  n
 }
 
 parse_timestamp <- function(x) {

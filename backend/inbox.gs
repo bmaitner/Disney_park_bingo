@@ -6,9 +6,9 @@
  *   - square suggestions, one row each in the "suggestions" tab
  *   - finished-card results, one row per square in the "results" tab
  *   - app opens, cards dealt, and cards printed, counted per day in the
- *     "visits" tab
- * The R functions fetch_suggestions(), fetch_results() and fetch_visits() read
- * them back using a private read token. See backend/README.md for setup.
+ *     "visits" tab and per device in the "visitors" tab
+ * The R functions fetch_suggestions(), fetch_results(), fetch_visits() and
+ * fetch_visitors() read them back using a private read token. See backend/README.md for setup.
  */
 
 const SHEETS = {
@@ -19,14 +19,17 @@ const SHEETS = {
     "received_at", "submission_id", "card_id", "mode", "age", "park", "difficulty",
     "started_at", "ended_at", "square_id", "crossed",
   ],
-  visits: ["date", "visits", "cards", "printed"],
+  visits: ["date", "visits", "cards", "printed", "visitors"],
+  visitors: [
+    "device_id", "first_seen", "last_seen", "days", "visits", "cards", "printed",
+  ],
 };
 const MAX_TEXT = 60;
 const MAX_NOTE = 200;
 // Across all players; guards against floods.
 const MAX_PER_HOUR = { suggestions: 300, results: 300, visits: 5000 };
-// Which column of the visits tab each counted event adds to.
-const VISIT_COLUMNS = { open: 2, card: 3, print: 4 };
+// Which count each usage event adds to, in the visits and visitors tabs.
+const COUNTED = { open: "visits", card: "cards", print: "printed" };
 const MAX_PRINTED = 12;
 
 const SQUARE_MODES = ["cynic", "fan", "any"];
@@ -47,6 +50,7 @@ function doPost(e) {
     if (body.type === "list_suggestions") return json(listRows(body, "suggestions"));
     if (body.type === "list_results") return json(listRows(body, "results"));
     if (body.type === "list_visits") return json(listRows(body, "visits"));
+    if (body.type === "list_visitors") return json(listRows(body, "visitors"));
     return json({ ok: false, error: "unknown request type" });
   } catch (err) {
     return json({ ok: false, error: "bad request" });
@@ -117,14 +121,19 @@ function addResult(body) {
   return appendRows("results", id, rows);
 }
 
-// Add to today's count (UTC) of app opens, cards dealt, or cards printed.
-// Nothing about the visitor is kept. Requests without an event are app opens.
+// Add to today's count (UTC) of app opens, cards dealt, or cards printed, and
+// to the sending device's totals. The device id is a random id the app keeps
+// on the phone; it isn't sent with suggestions or results. Requests without
+// an event are app opens, and requests without a device id only add to the
+// daily counts.
 function addVisit(body) {
   const event = body.event == null ? "open" : body.event;
-  const column = VISIT_COLUMNS[event];
-  if (!column) return rejected("invalid event");
+  const name = COUNTED[event];
+  if (!name) return rejected("invalid event");
   const n = body.n == null ? 1 : body.n;
   if (!Number.isInteger(n) || n < 1 || n > MAX_PRINTED) return rejected("invalid count");
+  const device = body.device == null ? "" : String(body.device);
+  if (device && !validId(device)) return rejected("invalid device");
 
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
@@ -135,27 +144,67 @@ function addVisit(body) {
     if (count >= MAX_PER_HOUR.visits) return { ok: true, skipped: true };
     cache.put(hourKey, String(count + 1), 3600);
 
-    const sheet = getSheet("visits");
-    const columns = SHEETS.visits;
-    // Tabs made before cards were counted only have date and visits.
-    if (sheet.getLastColumn() < columns.length) {
-      sheet.getRange(1, 1, 1, columns.length).setValues([columns]);
-    }
     const today = new Date().toISOString().slice(0, 10);
-    const last = sheet.getLastRow();
-    // Days are appended in order, so today's row is always the last one.
-    if (last > 1 && sheet.getRange(last, 1).getDisplayValue() === today) {
-      const cell = sheet.getRange(last, column);
-      cell.setValue(String(Number(cell.getDisplayValue()) + n));
-    } else {
-      const row = columns.map(function (_, i) { return i === 0 ? today : "0"; });
-      row[column - 1] = String(n);
-      sheet.appendRow(row);
-    }
+    const added = {};
+    added[name] = n;
+    if (device && countVisitor(device, today, name, n)) added.visitors = 1;
+    addToToday(added, today);
     return { ok: true };
   } finally {
     lock.releaseLock();
   }
+}
+
+// Add to the named counts in today's row of the visits tab.
+function addToToday(added, today) {
+  const sheet = getSheet("visits");
+  const columns = SHEETS.visits;
+  // Tabs made before a column was added are missing its header.
+  if (sheet.getLastColumn() < columns.length) {
+    sheet.getRange(1, 1, 1, columns.length).setValues([columns]);
+  }
+  const last = sheet.getLastRow();
+  // Days are appended in order, so today's row is always the last one.
+  if (last > 1 && sheet.getRange(last, 1).getDisplayValue() === today) {
+    Object.keys(added).forEach(function (name) {
+      const cell = sheet.getRange(last, columns.indexOf(name) + 1);
+      cell.setValue(String(Number(cell.getDisplayValue()) + added[name]));
+    });
+  } else {
+    sheet.appendRow(columns.map(function (column, i) {
+      return i === 0 ? today : String(added[column] || 0);
+    }));
+  }
+}
+
+// Add to one device's totals in the visitors tab. Returns true if this is the
+// device's first activity today, i.e. a new visitor for today's count.
+function countVisitor(device, today, name, n) {
+  const sheet = getSheet("visitors");
+  const columns = SHEETS.visitors;
+  const col = function (column) { return columns.indexOf(column); };
+  const found = sheet.getRange("A:A").createTextFinder(device)
+    .matchEntireCell(true).findNext();
+  if (!found) {
+    const row = columns.map(function () { return "0"; });
+    row[col("device_id")] = device;
+    row[col("first_seen")] = today;
+    row[col("last_seen")] = today;
+    row[col("days")] = "1";
+    row[col(name)] = String(n);
+    sheet.appendRow(row);
+    return true;
+  }
+  const range = sheet.getRange(found.getRow(), 1, 1, columns.length);
+  const row = range.getDisplayValues()[0];
+  const firstToday = row[col("last_seen")] !== today;
+  if (firstToday) {
+    row[col("last_seen")] = today;
+    row[col("days")] = String(Number(row[col("days")]) + 1);
+  }
+  row[col(name)] = String(Number(row[col(name)]) + n);
+  range.setValues([row]);
+  return firstToday;
 }
 
 // Append rows for one submission, skipping repeats of the same submission_id.

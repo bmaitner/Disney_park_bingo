@@ -274,12 +274,13 @@ test_that("result responses are parsed for update_difficulty", {
 test_that("visit counts parse from the inbox", {
   json <- paste0('{"ok":true,"visits":[',
     '{"date":"2026-09-16","visits":"12","cards":"","printed":""},',
-    '{"date":"2026-09-17","visits":"3","cards":"10","printed":"4"}]}')
+    '{"date":"2026-09-17","visits":"3","cards":"10","printed":"4","visitors":"2"}]}')
   visits <- parkbingo:::parse_visits(json)
   expect_equal(visits$date, as.Date(c("2026-09-16", "2026-09-17")))
   expect_equal(visits$visits, c(12L, 3L))
   expect_equal(visits$cards, c(0L, 10L))
   expect_equal(visits$printed, c(0L, 4L))
+  expect_equal(visits$visitors, c(0L, 2L))
 
   # Tabs from before cards were counted
   old <- parkbingo:::parse_visits('{"ok":true,"visits":[{"date":"2026-09-16","visits":"5"}]}')
@@ -289,4 +290,23 @@ test_that("visit counts parse from the inbox", {
   expect_equal(nrow(empty), 0)
   expect_s3_class(empty$date, "Date")
   expect_error(fetch_visits(endpoint = "", token = ""), "PARKBINGO_ENDPOINT")
+})
+
+test_that("visitor totals parse from the inbox", {
+  json <- paste0('{"ok":true,"visitors":[',
+    '{"device_id":"aaaa-1111","first_seen":"2026-09-16","last_seen":"2026-09-17",',
+    '"days":"2","visits":"5","cards":"12","printed":"0"},',
+    '{"device_id":"bbbb-2222","first_seen":"2026-09-17","last_seen":"2026-09-17",',
+    '"days":"1","visits":"1","cards":"1","printed":"8"}]}')
+  visitors <- parkbingo:::parse_visitors(json)
+  expect_equal(visitors$device_id, c("aaaa-1111", "bbbb-2222"))
+  expect_equal(visitors$first_seen, as.Date(c("2026-09-16", "2026-09-17")))
+  expect_equal(visitors$days, c(2L, 1L))
+  expect_equal(visitors$cards, c(12L, 1L))
+  expect_equal(visitors$printed, c(0L, 8L))
+
+  empty <- parkbingo:::parse_visitors('{"ok":true,"visitors":[]}')
+  expect_equal(nrow(empty), 0)
+  expect_s3_class(empty$last_seen, "Date")
+  expect_error(fetch_visitors(endpoint = "", token = ""), "PARKBINGO_ENDPOINT")
 })
